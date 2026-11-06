@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details — Velocity Cycles</title>
+  <meta name="description" content="View full product details, specifications, reviews and more.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+  <style>
+    .gallery-main { cursor: zoom-in; }
+    .detail-add-cart-btn-full {
+      flex: 1;
+      padding: 16px 24px;
+      background: var(--black);
+      color: var(--white);
+      border-radius: var(--radius-md);
+      font-family: var(--font-heading);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: var(--transition);
+      border: 2px solid var(--black);
+      cursor: pointer;
+    }
+    .detail-add-cart-btn-full:hover {
+      background: var(--primary);
+      color: var(--black);
+      border-color: var(--primary);
+    }
+    .detail-wishlist-btn {
+      width: 52px;
+      height: 52px;
+      border: 2px solid var(--border-gray);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--medium-gray);
+      font-size: 20px;
+      cursor: pointer;
+      transition: var(--transition);
+      background: var(--white);
+      flex-shrink: 0;
+    }
+    .detail-wishlist-btn:hover,
+    .detail-wishlist-btn.active {
+      background: #fff0f0;
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .review-card {
+      background: var(--bg-light);
+      border-radius: var(--radius-md);
+      padding: 20px 24px;
+      margin-bottom: 16px;
+    }
+    .review-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .reviewer-name {
+      font-family: var(--font-heading);
+      font-size: 14px;
+      font-weight: 700;
+    }
+    .review-date {
+      font-size: 12px;
+      color: var(--light-gray);
+    }
+    .review-body {
+      font-size: 14px;
+      color: var(--medium-gray);
+      line-height: 1.7;
+    }
+    .verified-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      color: var(--success);
+      font-weight: 600;
+    }
+    .spec-table { width: 100%; border-collapse: collapse; }
+    .spec-table tr:nth-child(even) td { background: var(--bg-light); }
+    .spec-table td {
+      padding: 12px 16px;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border-gray);
+    }
+    .spec-table td:first-child {
+      font-weight: 600;
+      color: var(--black);
+      width: 40%;
+      text-transform: capitalize;
+    }
+    .spec-table td:last-child { color: var(--medium-gray); }
+    .qty-selector { display: flex; align-items: center; border: 2px solid var(--border-gray); border-radius: var(--radius-md); overflow: hidden; }
+    .qty-selector button { width: 44px; height: 52px; display: flex; align-items: center; justify-content: center; background: var(--bg-light); cursor: pointer; font-size: 18px; color: var(--charcoal); transition: var(--transition); border: none; }
+    .qty-selector button:hover { background: var(--black); color: var(--white); }
+    .qty-selector input { width: 56px; text-align: center; font-family: var(--font-heading); font-size: 16px; font-weight: 700; border: none; padding: 0; height: 52px; }
+    .sticky-buy-bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--white);
+      border-top: 1px solid var(--border-gray);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 200;
+      transform: translateY(100%);
+      transition: transform 0.3s ease;
+      box-shadow: 0 -4px 20px rgba(0,0,0,0.1);
+    }
+    .sticky-buy-bar.visible { transform: translateY(0); }
+  </style>
+</head>
+<body>
+  <div class="loader-overlay" id="page-loader"><div class="loader-logo">VELOCITY<span>CYCLES</span></div><div class="loader-spinner"></div></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- HEADER -->
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-bicycle"></i></div>
+          <div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div>
+        </a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="shop.html">Shop <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="shop.html"><i class="fas fa-bicycle"></i> All Bikes</a></li>
+              <li><a href="mountain-bikes.html"><i class="fas fa-mountain"></i> Mountain Bikes</a></li>
+              <li><a href="road-bikes.html"><i class="fas fa-road"></i> Road Bikes</a></li>
+              <li><a href="electric-bikes.html"><i class="fas fa-bolt"></i> Electric Bikes</a></li>
+              <li><a href="kids-bikes.html"><i class="fas fa-child"></i> Kids Bikes</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="wishlist.html" class="nav-action-btn"><i class="far fa-heart"></i><span class="nav-badge wishlist-badge" style="display:none">0</span></a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-cart"></i><span class="nav-badge cart-badge" style="display:none">0</span></a>
+          <a href="login.html" class="nav-action-btn" id="nav-auth-btn"><i class="far fa-user"></i></a>
+          <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PRODUCT DETAIL SECTION -->
+  <div class="container" style="padding-top:100px">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" style="margin-bottom:0;padding:16px 0">
+      <a href="index.html">Home</a>
+      <i class="fas fa-chevron-right" style="font-size:10px"></i>
+      <a href="shop.html">Shop</a>
+      <i class="fas fa-chevron-right" style="font-size:10px"></i>
+      <a href="#" id="product-breadcrumb-cat">Category</a>
+      <i class="fas fa-chevron-right" style="font-size:10px"></i>
+      <span id="product-breadcrumb-name">Product</span>
+    </div>
+
+    <div class="product-detail-layout">
+      <!-- GALLERY -->
+      <div class="product-gallery">
+        <div class="gallery-main" id="gallery-main">
+          <img id="gallery-main-img" src="https://images.unsplash.com/photo-1576435728678-68d0fbf94946?w=800&q=80" alt="Product" style="transition:opacity 0.15s ease">
+        </div>
+        <div class="gallery-thumbs" id="gallery-thumbs"></div>
+      </div>
+
+      <!-- PRODUCT INFO -->
+      <div class="product-detail-info">
+        <div class="product-detail-brand" id="product-brand">Brand</div>
+        <h1 class="product-detail-name" id="product-name">Loading...</h1>
+
+        <div class="product-rating" style="margin-bottom:16px">
+          <div class="stars" id="product-rating-stars"></div>
+          <span class="rating-count" id="product-review-count">(0 reviews)</span>
+          <span style="margin-left:8px;font-size:12px;color:var(--success)">
+            <i class="fas fa-check-circle"></i> Verified Reviews
+          </span>
+        </div>
+
+        <div class="product-detail-price">
+          <span class="detail-price-current" id="product-current-price">$0</span>
+          <span class="detail-price-original" id="product-original-price" style="display:none">$0</span>
+          <span class="detail-price-save" id="product-save" style="display:none">Save 0%</span>
+        </div>
+
+        <p class="product-detail-desc" id="product-description">Loading product description...</p>
+
+        <!-- Size Selection -->
+        <div style="margin-bottom:24px">
+          <div class="option-label">
+            Frame Size
+            <a href="#size-guide" style="font-size:11px;color:var(--primary-dark);font-weight:600;margin-left:8px">
+              <i class="fas fa-ruler"></i> Size Guide
+            </a>
+          </div>
+          <div class="size-options" id="product-sizes"></div>
+        </div>
+
+        <!-- Color Selection -->
+        <div style="margin-bottom:28px">
+          <div class="option-label">Color: <span id="selected-color-name" style="font-weight:400;color:var(--medium-gray)">Select color</span></div>
+          <div class="color-options" id="product-colors"></div>
+        </div>
+
+        <!-- Stock Info -->
+        <div style="margin-bottom:24px;font-size:14px" id="product-stock"></div>
+
+        <!-- Add to Cart -->
+        <div class="add-to-cart-section">
+          <div class="qty-selector">
+            <button id="detail-qty-minus" type="button"><i class="fas fa-minus"></i></button>
+            <input type="number" id="detail-qty" value="1" min="1">
+            <button id="detail-qty-plus" type="button"><i class="fas fa-plus"></i></button>
+          </div>
+          <button class="detail-add-cart-btn-full" id="detail-add-cart-btn">
+            <i class="fas fa-shopping-cart"></i> Add to Cart
+          </button>
+          <button class="detail-wishlist-btn" id="detail-wishlist-btn" title="Add to Wishlist">
+            <i class="far fa-heart"></i>
+          </button>
+        </div>
+
+        <!-- Buy Now -->
+        <a href="checkout.html" id="buy-now-btn" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:24px;display:flex">
+          <i class="fas fa-bolt"></i> Buy Now — Express Checkout
+        </a>
+
+        <!-- Trust Badges -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+          <div style="display:flex;align-items:center;gap:8px;padding:12px;background:var(--bg-light);border-radius:var(--radius-md);font-size:13px">
+            <i class="fas fa-shipping-fast" style="color:var(--primary);font-size:18px"></i>
+            <div><div style="font-weight:700;font-size:12px">Free Shipping</div><div style="color:var(--medium-gray);font-size:11px">On orders over $500</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:12px;background:var(--bg-light);border-radius:var(--radius-md);font-size:13px">
+            <i class="fas fa-shield-alt" style="color:var(--primary);font-size:18px"></i>
+            <div><div style="font-weight:700;font-size:12px">2-Year Warranty</div><div style="color:var(--medium-gray);font-size:11px">Full manufacturer coverage</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:12px;background:var(--bg-light);border-radius:var(--radius-md);font-size:13px">
+            <i class="fas fa-undo" style="color:var(--primary);font-size:18px"></i>
+            <div><div style="font-weight:700;font-size:12px">30-Day Returns</div><div style="color:var(--medium-gray);font-size:11px">Hassle-free returns</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;padding:12px;background:var(--bg-light);border-radius:var(--radius-md);font-size:13px">
+            <i class="fas fa-tools" style="color:var(--primary);font-size:18px"></i>
+            <div><div style="font-weight:700;font-size:12px">Expert Assembly</div><div style="color:var(--medium-gray);font-size:11px">Professionally built</div></div>
+          </div>
+        </div>
+
+        <!-- Product Meta -->
+        <div class="product-meta" id="product-meta-info">
+          <div class="meta-item">
+            <i class="fas fa-weight-hanging"></i>
+            <span>Weight: </span><span id="meta-weight" style="margin-left:4px">—</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-tag"></i>
+            <span>SKU: </span><span id="meta-sku" style="margin-left:4px">—</span>
+          </div>
+          <div class="meta-item">
+            <i class="fas fa-share-alt"></i>
+            <span style="margin-right:4px">Share:</span>
+            <a href="#" style="color:var(--medium-gray);margin:0 4px" onclick="shareProduct('facebook')"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" style="color:var(--medium-gray);margin:0 4px" onclick="shareProduct('twitter')"><i class="fab fa-twitter"></i></a>
+            <a href="#" style="color:var(--medium-gray);margin:0 4px" onclick="copyProductLink()"><i class="fas fa-link"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TABS: Description / Specs / Reviews -->
+    <div class="tabs-container">
+      <div class="tabs-nav">
+        <button class="tab-nav-btn active" data-tab="tab-description">Description</button>
+        <button class="tab-nav-btn" data-tab="tab-specs">Specifications</button>
+        <button class="tab-nav-btn" data-tab="tab-reviews">Reviews <span id="review-tab-count" style="background:var(--primary);color:var(--black);font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;margin-left:4px"></span></button>
+        <button class="tab-nav-btn" data-tab="tab-shipping">Shipping & Returns</button>
+      </div>
+
+      <!-- Description Tab -->
+      <div class="tab-panel active" id="tab-description">
+        <div style="max-width:720px">
+          <p id="desc-full" style="font-size:15px;color:var(--medium-gray);line-height:1.85;margin-bottom:24px"></p>
+          <div id="feature-highlights" style="display:grid;grid-template-columns:1fr 1fr;gap:12px"></div>
+        </div>
+      </div>
+
+      <!-- Specs Tab -->
+      <div class="tab-panel" id="tab-specs">
+        <div style="max-width:640px">
+          <table class="spec-table">
+            <tbody id="product-specs-list"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Reviews Tab -->
+      <div class="tab-panel" id="tab-reviews">
+        <div style="display:grid;grid-template-columns:280px 1fr;gap:48px;align-items:start">
+          <div>
+            <div style="text-align:center;padding:32px;background:var(--bg-light);border-radius:var(--radius-lg)">
+              <div style="font-family:var(--font-heading);font-size:64px;font-weight:900;color:var(--black);line-height:1" id="avg-rating-big">4.9</div>
+              <div class="stars" id="avg-rating-stars" style="justify-content:center;margin:12px 0"></div>
+              <div style="font-size:13px;color:var(--medium-gray)" id="total-reviews-text">Based on 0 reviews</div>
+            </div>
+            <!-- Write a review button -->
+            <button onclick="document.getElementById('review-form').scrollIntoView({behavior:'smooth'})"
+              class="btn btn-secondary" style="width:100%;justify-content:center;margin-top:16px">
+              <i class="fas fa-pen"></i> Write a Review
+            </button>
+          </div>
+          <div>
+            <!-- Sample reviews -->
+            <div id="reviews-list">
+              <div class="review-card">
+                <div class="review-header">
+                  <div>
+                    <div class="reviewer-name">James W.</div>
+                    <div class="stars" style="margin:4px 0"><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i></div>
+                  </div>
+                  <div style="text-align:right">
+                    <div class="review-date">October 15, 2026</div>
+                    <div class="verified-badge"><i class="fas fa-check-circle"></i> Verified Purchase</div>
+                  </div>
+                </div>
+                <p class="review-body">Absolutely incredible bike. The carbon frame makes it feel almost weightless on the climb, and the SRAM Eagle shifting is buttery smooth. This is genuinely the best bike I have ever ridden. The team at Velocity Cycles were brilliant throughout — packed perfectly and arrived 2 days early.</p>
+              </div>
+              <div class="review-card">
+                <div class="review-header">
+                  <div>
+                    <div class="reviewer-name">Sarah C.</div>
+                    <div class="stars" style="margin:4px 0"><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star" style="color:var(--warning);font-size:12px"></i><i class="fas fa-star-half-alt" style="color:var(--warning);font-size:12px"></i></div>
+                  </div>
+                  <div style="text-align:right">
+                    <div class="review-date">September 22, 2026</div>
+                    <div class="verified-badge"><i class="fas fa-check-circle"></i> Verified Purchase</div>
+                  </div>
+                </div>
+                <p class="review-body">Great bike, very happy with the purchase. Takes some time to dial in the suspension setup but once you get it right it's a completely different experience. Would recommend getting a professional setup session if you're new to full suspension.</p>
+              </div>
+            </div>
+
+            <!-- Review Form -->
+            <div id="review-form" style="background:var(--bg-light);border-radius:var(--radius-lg);padding:28px;margin-top:28px">
+              <h3 style="font-family:var(--font-heading);font-size:18px;font-weight:700;margin-bottom:20px">Write a Review</h3>
+              <form onsubmit="submitReview(event)">
+                <div class="form-row" style="margin-bottom:16px">
+                  <div class="form-group" style="margin-bottom:0"><label class="form-label">Your Name</label><input type="text" class="form-control" placeholder="John Smith" required></div>
+                  <div class="form-group" style="margin-bottom:0"><label class="form-label">Email</label><input type="email" class="form-control" placeholder="you@example.com" required></div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Rating</label>
+                  <div class="star-rating" id="star-rating-input">
+                    <i class="far fa-star" data-value="1" onclick="setRating(1)"></i>
+                    <i class="far fa-star" data-value="2" onclick="setRating(2)"></i>
+                    <i class="far fa-star" data-value="3" onclick="setRating(3)"></i>
+                    <i class="far fa-star" data-value="4" onclick="setRating(4)"></i>
+                    <i class="far fa-star" data-value="5" onclick="setRating(5)"></i>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Review Title</label>
+                  <input type="text" class="form-control" placeholder="Summarise your experience" required>
+                </div>
+                <div class="form-group">
+                  <label class="form-label">Your Review</label>
+                  <textarea class="form-control" rows="4" placeholder="Tell us what you think about this product..." required style="resize:vertical"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-paper-plane"></i> Submit Review
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Shipping Tab -->
+      <div class="tab-panel" id="tab-shipping">
+        <div style="max-width:680px;display:grid;gap:20px">
+          <div style="border:1px solid var(--border-gray);border-radius:var(--radius-md);padding:24px">
+            <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+              <i class="fas fa-shipping-fast" style="color:var(--primary)"></i> Shipping Information
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Free standard shipping on all orders over $500</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Standard shipping: $29.99 for orders under $500</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Estimated delivery: 2–5 business days (continental US)</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> All bikes are professionally assembled and safety-checked before dispatch</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Tracking number provided via email once your order ships</li>
+            </ul>
+          </div>
+          <div style="border:1px solid var(--border-gray);border-radius:var(--radius-md);padding:24px">
+            <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:10px">
+              <i class="fas fa-undo" style="color:var(--primary)"></i> Returns & Exchanges
+            </h3>
+            <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> 30-day hassle-free returns on all items</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Items must be returned in original condition, unused</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Full refund or exchange within 5 business days of receipt</li>
+              <li style="font-size:14px;color:var(--medium-gray);display:flex;gap:10px;align-items:flex-start"><i class="fas fa-check" style="color:var(--success);margin-top:2px"></i> Free return shipping for defective or incorrect items</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RELATED PRODUCTS -->
+    <section style="padding:60px 0 80px">
+      <div class="section-header">
+        <span class="section-tag">You Might Also Like</span>
+        <h2 class="section-title">Related <span>Products</span></h2>
+      </div>
+      <div class="products-grid" id="related-products-grid"></div>
+    </section>
+  </div>
+
+  <!-- STICKY BUY BAR (shows when user scrolls past add-to-cart) -->
+  <div class="sticky-buy-bar" id="sticky-buy-bar">
+    <div style="display:flex;align-items:center;gap:16px;min-width:0">
+      <img id="sticky-product-img" src="" alt="" style="width:48px;height:36px;object-fit:cover;border-radius:6px;background:var(--bg-light)">
+      <div>
+        <div id="sticky-product-name" style="font-family:var(--font-heading);font-size:14px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:280px"></div>
+        <div id="sticky-product-price" style="font-size:13px;color:var(--medium-gray)"></div>
+      </div>
+    </div>
+    <button onclick="document.getElementById('detail-add-cart-btn').click()"
+      class="btn btn-primary btn-sm">
+      <i class="fas fa-shopping-cart"></i> Add to Cart
+    </button>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div></a>
+          <p>Premium bicycles for every rider.</p>
+          <div class="social-links"><a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-link"><i class="fab fa-instagram"></i></a><a href="#" class="social-link"><i class="fab fa-twitter"></i></a><a href="#" class="social-link"><i class="fab fa-youtube"></i></a></div>
+        </div>
+        <div><h4 class="footer-heading">Shop</h4><ul class="footer-links"><li><a href="shop.html">All Bikes</a></li><li><a href="mountain-bikes.html">Mountain</a></li><li><a href="road-bikes.html">Road</a></li><li><a href="electric-bikes.html">Electric</a></li><li><a href="kids-bikes.html">Kids</a></li></ul></div>
+        <div><h4 class="footer-heading">Help</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li><li><a href="#">FAQ</a></li><li><a href="#">Shipping</a></li></ul></div>
+        <div><h4 class="footer-heading">Contact</h4><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div><div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>+1 (555) 835-6289</span></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container" style="display:flex;justify-content:space-between;width:100%;align-items:center"><p>&copy; 2025 Velocity Cycles. All rights reserved.</p><div class="footer-bottom-links"><a href="#">Privacy</a><a href="#">Terms</a><a href="admin/login.html" style="color:rgba(57,255,20,0.4)">Admin</a></div></div></div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    let selectedRating = 0;
+
+    function setRating(value) {
+      selectedRating = value;
+      document.querySelectorAll('#star-rating-input i').forEach((star, idx) => {
+        star.className = idx < value ? 'fas fa-star' : 'far fa-star';
+        star.style.color = idx < value ? 'var(--warning)' : '#ccc';
+      });
+    }
+
+    function submitReview(e) {
+      e.preventDefault();
+      if (selectedRating === 0) { showToast('Rating Required', 'Please select a star rating.', 'warning'); return; }
+      showToast('Review Submitted!', 'Thank you for your review. It will appear after moderation.', 'success');
+      e.target.reset();
+      setRating(0);
+    }
+
+    function shareProduct(platform) {
+      const url = encodeURIComponent(window.location.href);
+      const title = encodeURIComponent(document.getElementById('product-name')?.textContent || 'Check this bike');
+      if (platform === 'facebook') window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+      if (platform === 'twitter') window.open(`https://twitter.com/intent/tweet?url=${url}&text=${title}`, '_blank');
+    }
+
+    function copyProductLink() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        showToast('Link Copied!', 'Product link copied to clipboard.', 'success');
+      });
+    }
+
+    // Sticky bar on scroll
+    const addCartSection = document.querySelector('.add-to-cart-section');
+    const stickyBar = document.getElementById('sticky-buy-bar');
+    if (addCartSection && stickyBar) {
+      const observer = new IntersectionObserver(([entry]) => {
+        stickyBar.classList.toggle('visible', !entry.isIntersecting);
+      }, { threshold: 0 });
+      observer.observe(addCartSection);
+    }
+
+    // Populate sticky bar after product loads
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const params = new URLSearchParams(window.location.search);
+        const product = ProductsStore.getById(params.get('id'));
+        if (product) {
+          document.getElementById('sticky-product-img').src = product.images[0];
+          document.getElementById('sticky-product-name').textContent = product.name;
+          document.getElementById('sticky-product-price').textContent = formatPrice(product.discountPrice || product.price);
+
+          // Description full
+          const descFull = document.getElementById('desc-full');
+          if (descFull) descFull.textContent = product.description;
+
+          // Feature highlights
+          const highlights = document.getElementById('feature-highlights');
+          if (highlights && product.specs) {
+            highlights.innerHTML = Object.entries(product.specs).slice(0, 6).map(([k, v]) => `
+              <div style="display:flex;align-items:flex-start;gap:10px;padding:12px;background:var(--bg-light);border-radius:8px">
+                <i class="fas fa-check-circle" style="color:var(--primary);margin-top:2px"></i>
+                <div><strong style="font-size:13px">${k.replace(/([A-Z])/g,' $1')}:</strong> <span style="font-size:13px;color:var(--medium-gray)">${v}</span></div>
+              </div>
+            `).join('');
+          }
+
+          // Meta info
+          document.getElementById('meta-weight').textContent = product.weight || '—';
+          document.getElementById('meta-sku').textContent = product.id;
+
+          // Review tab count
+          document.getElementById('review-tab-count').textContent = product.reviewCount;
+          document.getElementById('avg-rating-big').textContent = product.rating;
+          document.getElementById('avg-rating-stars').innerHTML = generateStars(product.rating);
+          document.getElementById('total-reviews-text').textContent = `Based on ${product.reviewCount} reviews`;
+
+          // Show/hide original price
+          if (product.discountPrice) {
+            document.getElementById('product-original-price').style.display = 'inline';
+            document.getElementById('product-save').style.display = 'inline-flex';
+          }
+
+          // Buy Now: add item to cart first
+          document.getElementById('buy-now-btn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const qty = parseInt(document.getElementById('detail-qty').value || '1');
+            const size = document.querySelector('.size-btn.active')?.dataset.size || null;
+            const color = document.querySelector('.color-option.active')?.dataset.color || null;
+            CartStore.add(product.id, qty, size, color);
+            window.location.href = 'checkout.html';
+          });
+        }
+      }, 100);
+    });
+  </script>
+</body>
+</html>

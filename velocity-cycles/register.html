@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — Velocity Cycles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+  
+  <style>
+    body { background: var(--bg-light); }
+    .password-toggle { position: relative; }
+    .password-toggle input { padding-right: 48px; }
+    .toggle-pw-btn { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--light-gray); cursor: pointer; font-size: 16px; }
+    .strength-bar { height: 4px; border-radius: 2px; background: var(--border-gray); margin-top: 6px; overflow: hidden; }
+    .strength-fill { height: 100%; border-radius: 2px; transition: width 0.3s ease, background 0.3s ease; width: 0; }
+  </style>
+</head>
+<body>
+  <div class="toast-container" id="toast-container"></div>
+
+  <div class="auth-layout">
+    <!-- VISUAL SIDE -->
+    <div class="auth-visual">
+      <div class="auth-visual-bg" style="background-image:url('https://images.unsplash.com/photo-1576435728678-68d0fbf94946?w=900&q=80')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,0.92),rgba(10,10,10,0.7))"></div>
+      <div class="auth-visual-content" style="position:relative;z-index:2">
+        <a href="index.html" class="logo" style="justify-content:center;margin-bottom:40px">
+          <div class="logo-icon" style="width:52px;height:52px;font-size:26px"><i class="fas fa-bicycle"></i></div>
+          <div><div class="logo-text" style="font-size:24px">VELOCITY<span>CYCLES</span></div></div>
+        </a>
+        <h2 class="auth-visual-title">Join the<br>Velocity Community.</h2>
+        <p class="auth-visual-text" style="max-width:360px;margin:0 auto 40px">Create your free account and get access to exclusive deals, order tracking, and personalized bike recommendations.</p>
+        <div style="display:flex;flex-direction:column;gap:12px;max-width:320px;margin:0 auto">
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px"><i class="fas fa-check-circle" style="color:var(--primary)"></i> Exclusive member discounts</div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px"><i class="fas fa-check-circle" style="color:var(--primary)"></i> Order history & tracking</div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px"><i class="fas fa-check-circle" style="color:var(--primary)"></i> Saved wishlist & addresses</div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px"><i class="fas fa-check-circle" style="color:var(--primary)"></i> Early access to new arrivals</div>
+          <div style="display:flex;align-items:center;gap:12px;color:rgba(255,255,255,0.7);font-size:14px"><i class="fas fa-check-circle" style="color:var(--primary)"></i> 100% free, cancel anytime</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM SIDE -->
+    <div class="auth-form-area" style="overflow-y:auto">
+      <div class="auth-form-container">
+        <div class="auth-form-header">
+          <h1>Create Account</h1>
+          <p>Join 50,000+ riders. It's completely free.</p>
+        </div>
+
+        <form id="register-form" onsubmit="handleCustomerRegister(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name *</label>
+              <input type="text" id="reg-firstname" class="form-control" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name *</label>
+              <input type="text" id="reg-lastname" class="form-control" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address *</label>
+            <div style="position:relative">
+              <i class="fas fa-envelope" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:14px"></i>
+              <input type="email" id="reg-email" class="form-control" placeholder="you@example.com" required style="padding-left:42px">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number <span style="color:var(--light-gray);font-weight:400">(optional)</span></label>
+            <div style="position:relative">
+              <i class="fas fa-phone" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:14px"></i>
+              <input type="tel" id="reg-phone" class="form-control" placeholder="+1 (555) 000-0000" style="padding-left:42px">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Password *</label>
+            <div class="password-toggle">
+              <i class="fas fa-lock" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:14px"></i>
+              <input type="password" id="reg-password" class="form-control" placeholder="Min. 8 characters" required style="padding-left:42px" oninput="checkPasswordStrength(this.value)">
+              <button type="button" class="toggle-pw-btn" onclick="togglePassword('reg-password',this)"><i class="fas fa-eye"></i></button>
+            </div>
+            <div class="strength-bar"><div class="strength-fill" id="strength-fill"></div></div>
+            <div id="strength-label" style="font-size:11px;color:var(--light-gray);margin-top:4px"></div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Confirm Password *</label>
+            <div class="password-toggle">
+              <i class="fas fa-lock" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:14px"></i>
+              <input type="password" id="reg-confirm-password" class="form-control" placeholder="Repeat your password" required style="padding-left:42px">
+              <button type="button" class="toggle-pw-btn" onclick="togglePassword('reg-confirm-password',this)"><i class="fas fa-eye"></i></button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px">
+            <input type="checkbox" id="reg-terms" required style="accent-color:var(--primary);width:16px;height:16px;margin-top:2px;flex-shrink:0">
+            <label for="reg-terms" style="font-size:13px;color:var(--medium-gray);cursor:pointer;line-height:1.5">I agree to the <a href="#" style="color:var(--primary-dark)">Terms of Service</a> and <a href="#" style="color:var(--primary-dark)">Privacy Policy</a>. I understand my data will be stored securely.</label>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+            <input type="checkbox" id="reg-newsletter" style="accent-color:var(--primary);width:16px;height:16px">
+            <label for="reg-newsletter" style="font-size:13px;color:var(--medium-gray);cursor:pointer">Subscribe to newsletter for exclusive deals and cycling tips</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;font-size:15px">
+            <i class="fas fa-user-plus"></i> Create Free Account
+          </button>
+        </form>
+
+        <div class="auth-switch" style="margin-top:24px">
+          Already have an account? <a href="login.html">Sign in here</a>
+        </div>
+
+        <div style="text-align:center;margin-top:16px">
+          <a href="index.html" style="font-size:13px;color:var(--light-gray);display:inline-flex;align-items:center;gap:6px">
+            <i class="fas fa-arrow-left"></i> Back to Homepage
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') { input.type = 'text'; btn.innerHTML = '<i class="fas fa-eye-slash"></i>'; }
+      else { input.type = 'password'; btn.innerHTML = '<i class="fas fa-eye"></i>'; }
+    }
+
+    function checkPasswordStrength(password) {
+      const fill = document.getElementById('strength-fill');
+      const label = document.getElementById('strength-label');
+      if (!fill || !label) return;
+
+      let strength = 0;
+      if (password.length >= 8) strength++;
+      if (/[A-Z]/.test(password)) strength++;
+      if (/[0-9]/.test(password)) strength++;
+      if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+      const levels = [
+        { pct: '0%', color: 'transparent', text: '' },
+        { pct: '25%', color: '#ef4444', text: 'Weak' },
+        { pct: '50%', color: '#f59e0b', text: 'Fair' },
+        { pct: '75%', color: '#3b82f6', text: 'Good' },
+        { pct: '100%', color: '#10b981', text: 'Strong' }
+      ];
+      const level = levels[strength] || levels[0];
+      fill.style.width = level.pct;
+      fill.style.background = level.color;
+      label.textContent = level.text ? `Password strength: ${level.text}` : '';
+      label.style.color = level.color;
+    }
+  </script>
+</body>
+</html>

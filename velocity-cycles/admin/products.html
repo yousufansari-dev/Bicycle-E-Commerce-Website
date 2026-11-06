@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products — Velocity Cycles Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon"><i class="fas fa-bicycle"></i></div>
+        <div><div class="sidebar-logo-text">VELOCITY<span>CYCLES</span></div><div class="sidebar-logo-badge">ADMIN</div></div>
+      </div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="dashboard.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tachometer-alt"></i></div><span class="sidebar-nav-label">Dashboard</span></a>
+        <div class="nav-section-title">Catalog</div>
+        <a href="products.html" class="sidebar-nav-item active"><div class="sidebar-nav-icon"><i class="fas fa-bicycle"></i></div><span class="sidebar-nav-label">Products</span></a>
+        <a href="add-product.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-plus-circle"></i></div><span class="sidebar-nav-label">Add Product</span></a>
+        <a href="categories.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tags"></i></div><span class="sidebar-nav-label">Categories</span></a>
+        <div class="nav-section-title">Sales</div>
+        <a href="orders.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-shopping-bag"></i></div><span class="sidebar-nav-label">Orders</span></a>
+        <a href="customers.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-users"></i></div><span class="sidebar-nav-label">Customers</span></a>
+        <div class="nav-section-title">System</div>
+        <a href="settings.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-cog"></i></div><span class="sidebar-nav-label">Settings</span></a>
+        <a href="../index.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-external-link-alt"></i></div><span class="sidebar-nav-label">View Store</span></a>
+      </nav>
+      <div class="sidebar-footer"><div class="admin-user-info" onclick="if(confirm('Sign out?')){AuthStore.adminLogout()}"><div class="admin-avatar">A</div><div><div class="admin-user-name admin-user-name-display">Admin</div><div class="admin-user-role">Super Admin</div></div><i class="fas fa-sign-out-alt" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px"></i></div></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <div><div class="admin-page-title">Products</div><div class="admin-breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> Products</div></div>
+        </div>
+        <div class="admin-header-right">
+          <a href="add-product.html" class="admin-btn admin-btn-primary"><i class="fas fa-plus"></i> Add New Product</a>
+          <div class="admin-header-divider"></div>
+          <div class="admin-header-user"><div class="admin-avatar" style="font-size:13px">A</div><span class="admin-header-user-name admin-user-name-display">Admin</span></div>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <!-- Stats Row -->
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px" id="product-stats-row"></div>
+
+        <!-- Products Table Card -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">All Products (<span id="product-total-count">0</span>)</div>
+            <div class="admin-card-actions">
+              <button onclick="exportProducts()" class="admin-btn admin-btn-outline admin-btn-sm"><i class="fas fa-download"></i> Export</button>
+            </div>
+          </div>
+          <div style="padding:16px 20px;border-bottom:1px solid var(--admin-border);display:flex;gap:12px;flex-wrap:wrap;align-items:center">
+            <div class="admin-search-wrap" style="max-width:280px">
+              <i class="fas fa-search"></i>
+              <input type="text" id="product-search" class="admin-search-input" placeholder="Search products...">
+            </div>
+            <select id="category-filter" class="admin-filter-select">
+              <option value="all">All Categories</option>
+              <option value="mountain">Mountain</option>
+              <option value="road">Road</option>
+              <option value="electric">Electric</option>
+              <option value="kids">Kids</option>
+            </select>
+            <select id="stock-filter" class="admin-filter-select">
+              <option value="all">All Stock</option>
+              <option value="in">In Stock</option>
+              <option value="low">Low Stock (≤5)</option>
+              <option value="out">Out of Stock</option>
+            </select>
+            <select id="sort-filter" class="admin-filter-select">
+              <option value="default">Default Sort</option>
+              <option value="price-low">Price: Low–High</option>
+              <option value="price-high">Price: High–Low</option>
+              <option value="name">Name A–Z</option>
+              <option value="stock">Stock: Low–High</option>
+            </select>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width:40px"><input type="checkbox" id="select-all" onchange="toggleSelectAll(this)"></th>
+                  <th>Product</th>
+                  <th>Brand</th>
+                  <th>Category</th>
+                  <th>Price</th>
+                  <th>Stock</th>
+                  <th>Status</th>
+                  <th>Rating</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="products-tbody"></tbody>
+            </table>
+          </div>
+          <div style="padding:16px 20px;border-top:1px solid var(--admin-border);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+            <div style="font-size:13px;color:var(--admin-light-gray)">Showing <span id="showing-count">0</span> products</div>
+            <div style="display:flex;gap:8px" id="bulk-actions" style="display:none">
+              <button onclick="bulkDelete()" class="admin-btn admin-btn-danger admin-btn-sm"><i class="fas fa-trash"></i> Delete Selected</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cloudinary.js"></script>
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    requireAdminAuth();
+    let selectedProducts = new Set();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderTable();
+
+      // Stats
+      const products = ProductsStore.getAll();
+      const statsRow = document.getElementById('product-stats-row');
+      if (statsRow) {
+        const inStock = products.filter(p => p.stock > 0).length;
+        const lowStock = products.filter(p => p.stock > 0 && p.stock <= 5).length;
+        const outOfStock = products.filter(p => p.stock === 0).length;
+        statsRow.innerHTML = `
+          <div style="background:var(--admin-white);border:1px solid var(--admin-border);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px">
+            <div style="width:44px;height:44px;background:rgba(57,255,20,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#2cc110"><i class="fas fa-boxes"></i></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800">${products.length}</div><div style="font-size:12px;color:var(--admin-light-gray)">Total Products</div></div>
+          </div>
+          <div style="background:var(--admin-white);border:1px solid var(--admin-border);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px">
+            <div style="width:44px;height:44px;background:rgba(16,185,129,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#10b981"><i class="fas fa-check-circle"></i></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800">${inStock}</div><div style="font-size:12px;color:var(--admin-light-gray)">In Stock</div></div>
+          </div>
+          <div style="background:var(--admin-white);border:1px solid var(--admin-border);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px">
+            <div style="width:44px;height:44px;background:rgba(245,158,11,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#f59e0b"><i class="fas fa-exclamation-triangle"></i></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800">${lowStock}</div><div style="font-size:12px;color:var(--admin-light-gray)">Low Stock</div></div>
+          </div>
+          <div style="background:var(--admin-white);border:1px solid var(--admin-border);border-radius:10px;padding:20px;display:flex;align-items:center;gap:14px">
+            <div style="width:44px;height:44px;background:rgba(239,68,68,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#ef4444"><i class="fas fa-times-circle"></i></div>
+            <div><div style="font-family:'Montserrat',sans-serif;font-size:24px;font-weight:800">${outOfStock}</div><div style="font-size:12px;color:var(--admin-light-gray)">Out of Stock</div></div>
+          </div>
+        `;
+      }
+
+      // Filters
+      ['product-search','category-filter','stock-filter','sort-filter'].forEach(id => {
+        document.getElementById(id)?.addEventListener('input', renderTable);
+        document.getElementById(id)?.addEventListener('change', renderTable);
+      });
+    });
+
+    function renderTable() {
+      let products = ProductsStore.getAll();
+      const search = document.getElementById('product-search')?.value.toLowerCase() || '';
+      const category = document.getElementById('category-filter')?.value || 'all';
+      const stock = document.getElementById('stock-filter')?.value || 'all';
+      const sort = document.getElementById('sort-filter')?.value || 'default';
+
+      if (search) products = products.filter(p => p.name.toLowerCase().includes(search) || p.brand.toLowerCase().includes(search));
+      if (category !== 'all') products = products.filter(p => p.category === category);
+      if (stock === 'in') products = products.filter(p => p.stock > 5);
+      else if (stock === 'low') products = products.filter(p => p.stock > 0 && p.stock <= 5);
+      else if (stock === 'out') products = products.filter(p => p.stock === 0);
+
+      if (sort === 'price-low') products.sort((a,b) => (a.discountPrice||a.price) - (b.discountPrice||b.price));
+      else if (sort === 'price-high') products.sort((a,b) => (b.discountPrice||b.price) - (a.discountPrice||a.price));
+      else if (sort === 'name') products.sort((a,b) => a.name.localeCompare(b.name));
+      else if (sort === 'stock') products.sort((a,b) => a.stock - b.stock);
+
+      document.getElementById('product-total-count').textContent = ProductsStore.getAll().length;
+      document.getElementById('showing-count').textContent = products.length;
+      renderAdminProductsTable(products);
+    }
+
+    function toggleSelectAll(cb) {
+      document.querySelectorAll('.product-row-cb').forEach(c => {
+        c.checked = cb.checked;
+        if (cb.checked) selectedProducts.add(c.value);
+        else selectedProducts.delete(c.value);
+      });
+    }
+
+    function bulkDelete() {
+      if (selectedProducts.size === 0) { showAdminToast('No Selection','Please select products to delete.','warning'); return; }
+      if (confirm(`Delete ${selectedProducts.size} selected product(s)?`)) {
+        selectedProducts.forEach(id => ProductsStore.delete(id));
+        selectedProducts.clear();
+        renderTable();
+        showAdminToast('Deleted',`${selectedProducts.size || 'Selected'} products removed.`,'success');
+      }
+    }
+
+    function exportProducts() {
+      const products = ProductsStore.getAll();
+      const csv = ['ID,Name,Brand,Category,Price,Discount Price,Stock,Rating']
+        .concat(products.map(p => `${p.id},"${p.name}","${p.brand}",${p.category},${p.price},${p.discountPrice||''},${p.stock},${p.rating}`))
+        .join('\n');
+      const blob = new Blob([csv], {type:'text/csv'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'velocity-cycles-products.csv';
+      a.click();
+    }
+
+    // Override table to include checkbox
+    function renderAdminProductsTable(products) {
+      const tbody = document.getElementById('products-tbody');
+      if (!tbody) return;
+      if (products.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center;padding:40px;color:var(--admin-light-gray)"><i class="fas fa-box-open" style="font-size:32px;display:block;margin-bottom:12px"></i>No products found</td></tr>`;
+        return;
+      }
+      tbody.innerHTML = products.map(p => {
+        const price = p.discountPrice || p.price;
+        const stockClass = p.stock > 10 ? 'high' : p.stock > 3 ? 'medium' : 'low';
+        const stockPct = Math.min((p.stock / 50) * 100, 100);
+        return `
+          <tr>
+            <td><input type="checkbox" class="product-row-cb" value="${p.id}" onchange="toggleRowSelect(this)"></td>
+            <td><div class="product-cell"><img src="${p.images[0]}" class="product-thumb" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&q=60'"><div><div class="product-name">${p.name}</div><div class="product-sku">ID: ${p.id}</div></div></div></td>
+            <td>${p.brand}</td>
+            <td style="text-transform:capitalize">${p.category}</td>
+            <td><div style="font-weight:700">$${price.toLocaleString()}</div>${p.discountPrice?`<div style="font-size:11px;color:var(--admin-light-gray);text-decoration:line-through">$${p.price.toLocaleString()}</div>`:''}</td>
+            <td><div class="stock-indicator"><div class="stock-bar"><div class="stock-fill ${stockClass}" style="width:${stockPct}%"></div></div><span class="stock-count">${p.stock}</span></div></td>
+            <td><span class="status-badge ${p.stock>0?'status-active':'status-cancelled'}">${p.stock>0?'In Stock':'Out of Stock'}</span></td>
+            <td style="color:var(--admin-warning)"><i class="fas fa-star" style="font-size:12px"></i> ${p.rating}</td>
+            <td><div style="display:flex;gap:6px"><a href="edit-product.html?id=${p.id}" class="admin-btn admin-btn-outline admin-btn-sm admin-btn-icon" title="Edit"><i class="fas fa-edit"></i></a><button class="admin-btn admin-btn-danger admin-btn-sm admin-btn-icon" onclick="confirmDeleteProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')"><i class="fas fa-trash"></i></button><a href="../product-details.html?id=${p.id}" target="_blank" class="admin-btn admin-btn-outline admin-btn-sm admin-btn-icon" title="Preview"><i class="fas fa-eye"></i></a></div></td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function toggleRowSelect(cb) {
+      if (cb.checked) selectedProducts.add(cb.value);
+      else selectedProducts.delete(cb.value);
+    }
+  </script>
+</body>
+</html>

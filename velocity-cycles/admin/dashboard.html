@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard — Velocity Cycles Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <div class="admin-layout">
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-logo">
+        <div class="sidebar-logo-icon"><i class="fas fa-bicycle"></i></div>
+        <div>
+          <div class="sidebar-logo-text">VELOCITY<span>CYCLES</span></div>
+          <div class="sidebar-logo-badge">ADMIN</div>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="dashboard.html" class="sidebar-nav-item active">
+          <div class="sidebar-nav-icon"><i class="fas fa-tachometer-alt"></i></div>
+          <span class="sidebar-nav-label">Dashboard</span>
+        </a>
+
+        <div class="nav-section-title">Catalog</div>
+        <a href="products.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-bicycle"></i></div>
+          <span class="sidebar-nav-label">Products</span>
+        </a>
+        <a href="add-product.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-plus-circle"></i></div>
+          <span class="sidebar-nav-label">Add Product</span>
+        </a>
+        <a href="categories.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-tags"></i></div>
+          <span class="sidebar-nav-label">Categories</span>
+        </a>
+
+        <div class="nav-section-title">Sales</div>
+        <a href="orders.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-shopping-bag"></i></div>
+          <span class="sidebar-nav-label">Orders</span>
+          <span class="sidebar-nav-badge" id="pending-badge">0</span>
+        </a>
+        <a href="customers.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-users"></i></div>
+          <span class="sidebar-nav-label">Customers</span>
+        </a>
+
+        <div class="nav-section-title">System</div>
+        <a href="settings.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-cog"></i></div>
+          <span class="sidebar-nav-label">Settings</span>
+        </a>
+        <a href="../index.html" class="sidebar-nav-item">
+          <div class="sidebar-nav-icon"><i class="fas fa-external-link-alt"></i></div>
+          <span class="sidebar-nav-label">View Store</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="admin-user-info" onclick="confirmLogout()">
+          <div class="admin-avatar">A</div>
+          <div>
+            <div class="admin-user-name admin-user-name-display">Admin User</div>
+            <div class="admin-user-role">Super Admin</div>
+          </div>
+          <i class="fas fa-sign-out-alt" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px"></i>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main">
+      <!-- HEADER -->
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <div>
+            <div class="admin-page-title">Dashboard</div>
+            <div class="admin-breadcrumb">
+              <a href="dashboard.html">Home</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> Overview
+            </div>
+          </div>
+        </div>
+        <div class="admin-header-right">
+          <button class="header-action-btn" title="Notifications" onclick="showAdminToast('Notifications','No new notifications.','info')">
+            <i class="fas fa-bell"></i>
+            <span class="header-badge" id="notif-badge">0</span>
+          </button>
+          <div class="admin-header-divider"></div>
+          <div class="admin-header-user">
+            <div class="admin-avatar" style="font-size:13px">A</div>
+            <span class="admin-header-user-name admin-user-name-display">Admin User</span>
+            <i class="fas fa-chevron-down" style="font-size:10px;color:var(--admin-light-gray)"></i>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD CONTENT -->
+      <div class="admin-content">
+
+        <!-- Welcome Banner -->
+        <div style="background:linear-gradient(135deg,var(--admin-black),#1c1c1c);border-radius:var(--admin-radius);padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border:1px solid rgba(57,255,20,0.1)">
+          <div>
+            <h2 style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:#fff;margin-bottom:4px">Good day, <span style="color:#39ff14">Admin</span> 👋</h2>
+            <p style="color:rgba(255,255,255,0.5);font-size:13px" id="dashboard-date"></p>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <a href="add-product.html" class="admin-btn admin-btn-primary"><i class="fas fa-plus"></i> Add Product</a>
+            <a href="orders.html" class="admin-btn admin-btn-secondary"><i class="fas fa-shopping-bag"></i> View Orders</a>
+          </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+          <div class="stat-card green">
+            <div class="stat-card-header">
+              <div class="stat-card-title">Total Revenue</div>
+              <div class="stat-icon green"><i class="fas fa-dollar-sign"></i></div>
+            </div>
+            <div class="stat-value" id="stat-revenue">$0</div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div class="stat-change up"><i class="fas fa-arrow-up"></i> 12.5%</div>
+              <div class="stat-period">vs last month</div>
+            </div>
+          </div>
+          <div class="stat-card blue">
+            <div class="stat-card-header">
+              <div class="stat-card-title">Total Orders</div>
+              <div class="stat-icon blue"><i class="fas fa-shopping-bag"></i></div>
+            </div>
+            <div class="stat-value" id="stat-orders">0</div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div class="stat-change up"><i class="fas fa-arrow-up"></i> 8.2%</div>
+              <div class="stat-period">vs last month</div>
+            </div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-card-header">
+              <div class="stat-card-title">Total Products</div>
+              <div class="stat-icon orange"><i class="fas fa-bicycle"></i></div>
+            </div>
+            <div class="stat-value" id="stat-products">0</div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div class="stat-change up"><i class="fas fa-arrow-up"></i> 3 new</div>
+              <div class="stat-period">this week</div>
+            </div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-card-header">
+              <div class="stat-card-title">Customers</div>
+              <div class="stat-icon red"><i class="fas fa-users"></i></div>
+            </div>
+            <div class="stat-value" id="stat-customers">0</div>
+            <div style="display:flex;align-items:center;justify-content:space-between">
+              <div class="stat-change up"><i class="fas fa-arrow-up"></i> 5.1%</div>
+              <div class="stat-period">vs last month</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MAIN CHARTS ROW -->
+        <div class="dashboard-grid-3" style="margin-bottom:24px">
+          <!-- Sales Chart -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title"><i class="fas fa-chart-line" style="color:#39ff14;margin-right:8px"></i>Sales Overview</div>
+              <div class="admin-card-actions">
+                <span style="font-size:12px;color:var(--admin-light-gray);background:var(--admin-bg);padding:4px 10px;border-radius:20px">Last 6 Months</span>
+              </div>
+            </div>
+            <div class="admin-card-body" style="padding-top:8px">
+              <div class="chart-container">
+                <canvas id="sales-chart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions + Pending Orders -->
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <!-- Order Status Summary -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <div class="admin-card-title">Order Status</div>
+              </div>
+              <div class="admin-card-body" style="padding:16px">
+                <div id="order-status-summary" style="display:flex;flex-direction:column;gap:10px"></div>
+              </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <div class="admin-card-title">Quick Actions</div>
+              </div>
+              <div class="admin-card-body" style="padding:12px">
+                <div class="quick-actions-grid" style="grid-template-columns:repeat(2,1fr)">
+                  <a href="add-product.html" class="quick-action-item">
+                    <div class="quick-action-icon"><i class="fas fa-plus-circle"></i></div>
+                    <span class="quick-action-text">Add Product</span>
+                  </a>
+                  <a href="orders.html" class="quick-action-item">
+                    <div class="quick-action-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <span class="quick-action-text">View Orders</span>
+                  </a>
+                  <a href="customers.html" class="quick-action-item">
+                    <div class="quick-action-icon"><i class="fas fa-user-plus"></i></div>
+                    <span class="quick-action-text">Customers</span>
+                  </a>
+                  <a href="settings.html" class="quick-action-item">
+                    <div class="quick-action-icon"><i class="fas fa-cog"></i></div>
+                    <span class="quick-action-text">Settings</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- BOTTOM ROW -->
+        <div class="dashboard-grid" style="margin-bottom:24px">
+          <!-- Recent Orders -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title"><i class="fas fa-clock" style="color:#39ff14;margin-right:8px"></i>Recent Orders</div>
+              <a href="orders.html" class="admin-btn admin-btn-outline admin-btn-sm">View All</a>
+            </div>
+            <div class="admin-table-wrap">
+              <table class="admin-table">
+                <thead>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="recent-orders-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Low Stock -->
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <div class="admin-card-title"><i class="fas fa-exclamation-triangle" style="color:#f59e0b;margin-right:8px"></i>Low Stock Alert</div>
+              <a href="products.html" class="admin-btn admin-btn-outline admin-btn-sm">Manage</a>
+            </div>
+            <div class="admin-card-body">
+              <div id="low-stock-list"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Performance -->
+        <div class="admin-card" style="margin-bottom:24px">
+          <div class="admin-card-header">
+            <div class="admin-card-title"><i class="fas fa-chart-bar" style="color:#39ff14;margin-right:8px"></i>Category Performance</div>
+          </div>
+          <div class="admin-card-body">
+            <div id="category-performance" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px"></div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <!-- Order Detail Modal -->
+  <div class="modal-overlay" id="order-detail-modal">
+    <div class="modal" style="max-width:640px;max-height:90vh;overflow-y:auto">
+      <button class="modal-close" onclick="document.getElementById('order-detail-modal').classList.remove('active');document.body.style.overflow=''"><i class="fas fa-times"></i></button>
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin-bottom:24px">Order Details</h2>
+      <div id="order-detail-content"></div>
+    </div>
+  </div>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cloudinary.js"></script>
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    requireAdminAuth();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Date
+      document.getElementById('dashboard-date').textContent = new Date().toLocaleDateString('en-US', { weekday:'long', year:'numeric', month:'long', day:'numeric' });
+
+      // Stats
+      renderDashboardStats();
+
+      // Pending badge
+      const stats = OrdersStore.getStats();
+      const pendingBadge = document.getElementById('pending-badge');
+      if (pendingBadge && stats.pending > 0) {
+        pendingBadge.textContent = stats.pending;
+        pendingBadge.style.display = 'flex';
+      }
+
+      // Notifications badge
+      const notifBadge = document.getElementById('notif-badge');
+      if (notifBadge) {
+        notifBadge.textContent = stats.pending;
+        notifBadge.style.display = stats.pending > 0 ? 'flex' : 'none';
+      }
+
+      // Order Status Summary
+      const statusContainer = document.getElementById('order-status-summary');
+      if (statusContainer) {
+        const statuses = [
+          { label: 'Pending', key: 'pending', color: '#f59e0b', icon: 'fa-clock' },
+          { label: 'Processing', key: 'processing', color: '#8b5cf6', icon: 'fa-cog' },
+          { label: 'Shipped', key: 'shipped', color: '#10b981', icon: 'fa-truck' },
+          { label: 'Delivered', key: 'delivered', color: '#39ff14', icon: 'fa-check-circle' },
+          { label: 'Cancelled', key: 'cancelled', color: '#ef4444', icon: 'fa-times-circle' }
+        ];
+        statusContainer.innerHTML = statuses.map(s => `
+          <div style="display:flex;align-items:center;gap:10px">
+            <i class="fas ${s.icon}" style="color:${s.color};width:16px;font-size:13px"></i>
+            <span style="flex:1;font-size:13px;color:var(--admin-medium-gray)">${s.label}</span>
+            <div style="background:var(--admin-bg);border-radius:4px;height:6px;flex:1;overflow:hidden">
+              <div style="height:100%;background:${s.color};width:${Math.min((stats[s.key] / Math.max(stats.total, 1)) * 100, 100)}%;border-radius:4px"></div>
+            </div>
+            <span style="font-weight:700;font-size:13px;min-width:20px;text-align:right">${stats[s.key]}</span>
+          </div>
+        `).join('');
+      }
+
+      // Recent orders table
+      const tbody = document.getElementById('recent-orders-tbody');
+      if (tbody) {
+        const recentOrders = OrdersStore.getAll().slice(0, 5);
+        if (recentOrders.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:24px;color:var(--admin-light-gray)">No orders yet</td></tr>';
+        } else {
+          tbody.innerHTML = recentOrders.map(o => `
+            <tr>
+              <td><strong style="font-family:'Montserrat',sans-serif;font-size:12px">${o.id}</strong></td>
+              <td>
+                <div style="font-size:13px;font-weight:600">${o.customerName}</div>
+                <div style="font-size:11px;color:var(--admin-light-gray)">${new Date(o.createdAt).toLocaleDateString()}</div>
+              </td>
+              <td style="font-weight:700">$${o.total.toFixed(2)}</td>
+              <td><span class="status-badge status-${o.status}">${capitalize(o.status)}</span></td>
+              <td>
+                <button class="admin-btn admin-btn-outline admin-btn-sm admin-btn-icon" onclick="viewOrderDetails('${o.id}')">
+                  <i class="fas fa-eye"></i>
+                </button>
+              </td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      // Low stock widget
+      renderLowStockWidget();
+
+      // Category performance
+      const catContainer = document.getElementById('category-performance');
+      if (catContainer) {
+        const cats = [
+          { id: 'mountain', name: 'Mountain', icon: 'fa-mountain', color: '#2d6a4f' },
+          { id: 'road', name: 'Road', icon: 'fa-road', color: '#0077b6' },
+          { id: 'electric', name: 'Electric', icon: 'fa-bolt', color: '#39ff14' },
+          { id: 'kids', name: 'Kids', icon: 'fa-child', color: '#f9c74f' }
+        ];
+        catContainer.innerHTML = cats.map(cat => {
+          const products = ProductsStore.getByCategory(cat.id);
+          const orders = OrdersStore.getAll();
+          const revenue = orders
+            .filter(o => o.status !== 'cancelled')
+            .flatMap(o => o.items)
+            .filter(i => products.some(p => p.id === i.id))
+            .reduce((sum, i) => sum + (i.price * i.quantity), 0);
+
+          return `
+            <div style="background:var(--admin-bg);border-radius:10px;padding:20px;text-align:center;border:1px solid var(--admin-border)">
+              <div style="width:48px;height:48px;background:${cat.color}20;border-radius:10px;display:flex;align-items:center;justify-content:center;margin:0 auto 12px;color:${cat.color};font-size:20px">
+                <i class="fas ${cat.icon}"></i>
+              </div>
+              <div style="font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;margin-bottom:4px">${cat.name}</div>
+              <div style="font-size:20px;font-weight:900;font-family:'Montserrat',sans-serif;color:var(--admin-charcoal);margin-bottom:4px">${products.length}</div>
+              <div style="font-size:12px;color:var(--admin-light-gray)">products</div>
+            </div>
+          `;
+        }).join('');
+      }
+
+      // Draw sales chart
+      setTimeout(() => drawSalesChart('sales-chart'), 200);
+    });
+
+    function confirmLogout() {
+      if (confirm('Sign out of the admin panel?')) { AuthStore.adminLogout(); }
+    }
+
+    function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+  </script>
+</body>
+</html>

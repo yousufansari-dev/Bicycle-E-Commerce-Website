@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — Velocity Cycles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="loader-overlay" id="page-loader"><div class="loader-logo">VELOCITY<span>CYCLES</span></div><div class="loader-spinner"></div></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="shop.html"><i class="fas fa-bicycle"></i> All Bikes</a></li>
+              <li><a href="mountain-bikes.html"><i class="fas fa-mountain"></i> Mountain Bikes</a></li>
+              <li><a href="road-bikes.html"><i class="fas fa-road"></i> Road Bikes</a></li>
+              <li><a href="electric-bikes.html"><i class="fas fa-bolt"></i> Electric Bikes</a></li>
+              <li><a href="kids-bikes.html"><i class="fas fa-child"></i> Kids Bikes</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="wishlist.html" class="nav-action-btn"><i class="far fa-heart"></i><span class="nav-badge wishlist-badge" style="display:none">0</span></a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-cart"></i><span class="nav-badge cart-badge" style="display:none">0</span></a>
+          <a href="login.html" class="nav-action-btn" id="nav-auth-btn"><i class="far fa-user"></i></a>
+          <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1571068316344-75bc76f77890?w=1400&q=80')"></div>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right" style="font-size:10px"></i><span>About Us</span></div>
+        <h1 class="page-title">Our Story</h1>
+        <p class="page-subtitle">Born from a passion for cycling — built for riders who refuse to settle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MISSION STATEMENT -->
+  <section style="padding:80px 0;background:var(--black)">
+    <div class="container">
+      <div style="max-width:800px;margin:0 auto;text-align:center">
+        <span class="section-tag">Our Mission</span>
+        <h2 style="font-family:var(--font-heading);font-size:clamp(28px,4vw,44px);font-weight:900;color:var(--white);line-height:1.15;margin:16px 0 24px;letter-spacing:-1px">
+          "To connect every rider with the bicycle that changes their world."
+        </h2>
+        <p style="color:rgba(255,255,255,0.6);font-size:17px;line-height:1.8">
+          We believe cycling is more than sport — it's freedom, community, and transformation. Since 2009, Velocity Cycles has been Colorado's premier destination for performance bicycles, guided by deep expertise and genuine passion for the ride.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR STORY -->
+  <section class="about-story">
+    <div class="container">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+        <div class="fade-in">
+          <span class="section-tag">Since 2009</span>
+          <h2 class="section-title" style="text-align:left;margin-top:16px">15 Years of <span>Riding Passion</span></h2>
+          <p style="color:var(--medium-gray);line-height:1.85;margin-bottom:16px">It started in a small Denver garage. Co-founders Alex Park and Jordan Miles — both competitive cyclists — grew frustrated with the lack of expert-curated bicycle shops that truly understood the modern rider's needs.</p>
+          <p style="color:var(--medium-gray);line-height:1.85;margin-bottom:16px">In 2009, they launched Velocity Cycles with a simple commitment: stock only the world's finest bikes, employ only passionate riders, and deliver an experience that makes every customer feel like a pro.</p>
+          <p style="color:var(--medium-gray);line-height:1.85;margin-bottom:32px">Today, we serve over 50,000 cyclists across the United States, offering an expertly curated range of mountain, road, electric, and kids bicycles from the industry's most respected brands.</p>
+          <div style="display:flex;gap:32px;flex-wrap:wrap">
+            <div><div style="font-family:var(--font-heading);font-size:36px;font-weight:900;color:var(--primary)">15+</div><div style="font-size:13px;color:var(--medium-gray)">Years in Business</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:36px;font-weight:900;color:var(--primary)">50K+</div><div style="font-size:13px;color:var(--medium-gray)">Happy Customers</div></div>
+            <div><div style="font-family:var(--font-heading);font-size:36px;font-weight:900;color:var(--primary)">500+</div><div style="font-size:13px;color:var(--medium-gray)">Bike Models</div></div>
+          </div>
+        </div>
+        <div class="about-image fade-in fade-in-delay-2" style="border-radius:16px;overflow:hidden;position:relative;aspect-ratio:3/4">
+          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80" alt="Velocity Cycles Store" style="width:100%;height:100%;object-fit:cover">
+          <div class="about-image-badge">
+            <div class="years">15</div>
+            <div class="text">Years Strong</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section style="padding:80px 0;background:var(--bg-light)">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">What Drives Us</span>
+        <h2 class="section-title">Our Core <span>Values</span></h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:32px">
+        <div style="background:var(--white);border-radius:16px;padding:36px 28px;border:1px solid var(--border-gray);transition:var(--transition)" class="fade-in fade-in-delay-1">
+          <div style="width:60px;height:60px;background:rgba(57,255,20,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:28px;margin-bottom:20px"><i class="fas fa-heart"></i></div>
+          <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:700;margin-bottom:12px">Passion First</h3>
+          <p style="color:var(--medium-gray);font-size:14px;line-height:1.8">Every team member is an active cyclist. We don't just sell bikes — we ride them, race them, and live them. This passion drives every recommendation we make.</p>
+        </div>
+        <div style="background:var(--white);border-radius:16px;padding:36px 28px;border:1px solid var(--border-gray);transition:var(--transition)" class="fade-in fade-in-delay-2">
+          <div style="width:60px;height:60px;background:rgba(57,255,20,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:28px;margin-bottom:20px"><i class="fas fa-medal"></i></div>
+          <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:700;margin-bottom:12px">Uncompromising Quality</h3>
+          <p style="color:var(--medium-gray);font-size:14px;line-height:1.8">We partner only with brands that share our commitment to excellence. Every bike in our range is chosen for its performance, reliability, and value.</p>
+        </div>
+        <div style="background:var(--white);border-radius:16px;padding:36px 28px;border:1px solid var(--border-gray);transition:var(--transition)" class="fade-in fade-in-delay-3">
+          <div style="width:60px;height:60px;background:rgba(57,255,20,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:28px;margin-bottom:20px"><i class="fas fa-users"></i></div>
+          <h3 style="font-family:var(--font-heading);font-size:20px;font-weight:700;margin-bottom:12px">Community First</h3>
+          <p style="color:var(--medium-gray);font-size:14px;line-height:1.8">Cycling builds community. We organize group rides, sponsor local races, and invest in trail development to grow the sport we love.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section style="padding:80px 0">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">The People Behind the Bikes</span>
+        <h2 class="section-title">Meet Our <span>Team</span></h2>
+        <p class="section-subtitle">Passionate riders, expert mechanics, and dedicated service professionals — all united by a love of cycling.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+        <div style="text-align:center" class="fade-in fade-in-delay-1">
+          <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:3px solid var(--primary)">
+            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&q=80" alt="Alex Park" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:4px">Alex Park</h3>
+          <p style="font-size:13px;color:var(--primary);font-weight:600;margin-bottom:8px">Co-Founder & CEO</p>
+          <p style="font-size:13px;color:var(--medium-gray)">Former pro XC racer. 20+ years in the saddle.</p>
+        </div>
+        <div style="text-align:center" class="fade-in fade-in-delay-2">
+          <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:3px solid var(--primary)">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&q=80" alt="Jordan Miles" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:4px">Jordan Miles</h3>
+          <p style="font-size:13px;color:var(--primary);font-weight:600;margin-bottom:8px">Co-Founder & Head of Products</p>
+          <p style="font-size:13px;color:var(--medium-gray)">Enduro specialist. Product curator since day one.</p>
+        </div>
+        <div style="text-align:center" class="fade-in fade-in-delay-3">
+          <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:3px solid var(--primary)">
+            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b2e1?w=200&q=80" alt="Maya Chen" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:4px">Maya Chen</h3>
+          <p style="font-size:13px;color:var(--primary);font-weight:600;margin-bottom:8px">Head of Customer Experience</p>
+          <p style="font-size:13px;color:var(--medium-gray)">Road racer. Customer happiness champion.</p>
+        </div>
+        <div style="text-align:center" class="fade-in fade-in-delay-4">
+          <div style="width:120px;height:120px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:3px solid var(--primary)">
+            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80" alt="Sam Rivera" style="width:100%;height:100%;object-fit:cover">
+          </div>
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:4px">Sam Rivera</h3>
+          <p style="font-size:13px;color:var(--primary);font-weight:600;margin-bottom:8px">Lead Mechanic & Technical Director</p>
+          <p style="font-size:13px;color:var(--medium-gray)">Certified master mechanic. Trail builder. Fixer.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding:80px 0;background:var(--black);text-align:center;position:relative;overflow:hidden">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(57,255,20,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(57,255,20,0.03) 1px,transparent 1px);background-size:60px 60px"></div>
+    <div class="container" style="position:relative;z-index:2">
+      <span class="section-tag">Ready to Ride?</span>
+      <h2 style="font-family:var(--font-heading);font-size:clamp(28px,4vw,48px);font-weight:900;color:var(--white);margin:16px 0 20px">Start Your <span style="color:var(--primary)">Journey</span></h2>
+      <p style="color:rgba(255,255,255,0.6);font-size:16px;max-width:480px;margin:0 auto 36px;line-height:1.7">Find your perfect ride from our curated collection of premium bicycles.</p>
+      <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+        <a href="shop.html" class="btn btn-primary btn-lg"><i class="fas fa-bicycle"></i> Shop All Bikes</a>
+        <a href="contact.html" class="btn btn-outline-white btn-lg"><i class="fas fa-comments"></i> Talk to an Expert</a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div></div></a><p>Premium bicycles for every rider.</p><div class="social-links"><a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-link"><i class="fab fa-instagram"></i></a><a href="#" class="social-link"><i class="fab fa-twitter"></i></a></div></div>
+        <div><h4 class="footer-heading">Shop</h4><ul class="footer-links"><li><a href="mountain-bikes.html">Mountain Bikes</a></li><li><a href="road-bikes.html">Road Bikes</a></li><li><a href="electric-bikes.html">Electric Bikes</a></li><li><a href="kids-bikes.html">Kids Bikes</a></li></ul></div>
+        <div><h4 class="footer-heading">Company</h4><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4 class="footer-heading">Contact</h4><div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i><span>1234 Cycle Lane, Denver, CO 80201</span></div><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div><div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>+1 (555) 835-6289</span></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container" style="display:flex;justify-content:space-between;width:100%;align-items:center"><p>&copy; 2025 Velocity Cycles.</p><div class="footer-bottom-links"><a href="admin/login.html" style="color:rgba(57,255,20,0.4)">Admin</a></div></div></div>
+  </footer>
+  <button class="back-to-top" id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

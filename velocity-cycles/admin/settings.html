@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings — Velocity Cycles Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-logo"><div class="sidebar-logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="sidebar-logo-text">VELOCITY<span>CYCLES</span></div><div class="sidebar-logo-badge">ADMIN</div></div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="dashboard.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tachometer-alt"></i></div><span class="sidebar-nav-label">Dashboard</span></a>
+        <div class="nav-section-title">Catalog</div>
+        <a href="products.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-bicycle"></i></div><span class="sidebar-nav-label">Products</span></a>
+        <a href="add-product.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-plus-circle"></i></div><span class="sidebar-nav-label">Add Product</span></a>
+        <a href="categories.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tags"></i></div><span class="sidebar-nav-label">Categories</span></a>
+        <div class="nav-section-title">Sales</div>
+        <a href="orders.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-shopping-bag"></i></div><span class="sidebar-nav-label">Orders</span></a>
+        <a href="customers.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-users"></i></div><span class="sidebar-nav-label">Customers</span></a>
+        <div class="nav-section-title">System</div>
+        <a href="settings.html" class="sidebar-nav-item active"><div class="sidebar-nav-icon"><i class="fas fa-cog"></i></div><span class="sidebar-nav-label">Settings</span></a>
+        <a href="../index.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-external-link-alt"></i></div><span class="sidebar-nav-label">View Store</span></a>
+      </nav>
+      <div class="sidebar-footer"><div class="admin-user-info" onclick="if(confirm('Sign out?')){AuthStore.adminLogout()}"><div class="admin-avatar">A</div><div><div class="admin-user-name admin-user-name-display">Admin</div><div class="admin-user-role">Super Admin</div></div><i class="fas fa-sign-out-alt" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px"></i></div></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <div><div class="admin-page-title">Settings</div><div class="admin-breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> Settings</div></div>
+        </div>
+        <div class="admin-header-right">
+          <div class="admin-header-user"><div class="admin-avatar" style="font-size:13px">A</div><span class="admin-header-user-name admin-user-name-display">Admin</span></div>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div style="display:grid;grid-template-columns:220px 1fr;gap:24px;align-items:start">
+
+          <!-- Settings Nav -->
+          <div class="admin-card" style="position:sticky;top:90px">
+            <div class="admin-card-body" style="padding:8px">
+              <nav id="settings-nav">
+                <button onclick="showSection('store')" class="settings-nav-btn active" data-section="store"
+                  style="width:100%;text-align:left;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;transition:all 0.2s;background:var(--admin-charcoal);color:#fff;margin-bottom:4px">
+                  <i class="fas fa-store" style="width:16px"></i> Store Info
+                </button>
+                <button onclick="showSection('cloudinary')" class="settings-nav-btn" data-section="cloudinary"
+                  style="width:100%;text-align:left;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;transition:all 0.2s;background:transparent;color:var(--admin-medium-gray);margin-bottom:4px">
+                  <i class="fas fa-cloud-upload-alt" style="width:16px"></i> Cloudinary
+                </button>
+                <button onclick="showSection('admin')" class="settings-nav-btn" data-section="admin"
+                  style="width:100%;text-align:left;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;transition:all 0.2s;background:transparent;color:var(--admin-medium-gray);margin-bottom:4px">
+                  <i class="fas fa-user-shield" style="width:16px"></i> Admin Account
+                </button>
+                <button onclick="showSection('shipping')" class="settings-nav-btn" data-section="shipping"
+                  style="width:100%;text-align:left;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;transition:all 0.2s;background:transparent;color:var(--admin-medium-gray);margin-bottom:4px">
+                  <i class="fas fa-shipping-fast" style="width:16px"></i> Shipping
+                </button>
+                <button onclick="showSection('data')" class="settings-nav-btn" data-section="data"
+                  style="width:100%;text-align:left;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;transition:all 0.2s;background:transparent;color:var(--admin-medium-gray);margin-bottom:4px">
+                  <i class="fas fa-database" style="width:16px"></i> Data Management
+                </button>
+                <button onclick="showSection('about')" class="settings-nav-btn" data-section="about"
+                  style="width:100%;text-align:left;padding:10px 14px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:600;display:flex;align-items:center;gap:10px;transition:all 0.2s;background:transparent;color:var(--admin-medium-gray)">
+                  <i class="fas fa-info-circle" style="width:16px"></i> About
+                </button>
+              </nav>
+            </div>
+          </div>
+
+          <!-- Settings Panels -->
+          <div>
+
+            <!-- Store Info -->
+            <div id="section-store" class="settings-section admin-card">
+              <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-store" style="color:#39ff14;margin-right:8px"></i>Store Information</div></div>
+              <div class="admin-card-body">
+                <div class="admin-form-row">
+                  <div class="admin-form-group"><label class="admin-label">Store Name</label><input type="text" class="admin-input" value="Velocity Cycles"></div>
+                  <div class="admin-form-group"><label class="admin-label">Tagline</label><input type="text" class="admin-input" value="Ride Beyond Limits"></div>
+                </div>
+                <div class="admin-form-group"><label class="admin-label">Store Email</label><input type="email" class="admin-input" value="hello@velocitycycles.com"></div>
+                <div class="admin-form-row">
+                  <div class="admin-form-group"><label class="admin-label">Phone</label><input type="tel" class="admin-input" value="+1 (555) 835-6289"></div>
+                  <div class="admin-form-group"><label class="admin-label">Currency</label>
+                    <select class="admin-select"><option selected>USD ($)</option><option>EUR (€)</option><option>GBP (£)</option><option>CAD (C$)</option></select>
+                  </div>
+                </div>
+                <div class="admin-form-group"><label class="admin-label">Address</label><input type="text" class="admin-input" value="1234 Cycle Lane, Denver, CO 80201, USA"></div>
+                <div class="admin-form-group"><label class="admin-label">Store Description</label><textarea class="admin-textarea" rows="3">Premium bicycles for every rider. From mountain trails to city streets, we have the perfect bike to fuel your passion and push your limits.</textarea></div>
+                <button onclick="saveSettings('store')" class="admin-btn admin-btn-primary"><i class="fas fa-save"></i> Save Store Info</button>
+              </div>
+            </div>
+
+            <!-- Cloudinary -->
+            <div id="section-cloudinary" class="settings-section admin-card" style="display:none">
+              <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-cloud-upload-alt" style="color:#39ff14;margin-right:8px"></i>Cloudinary Configuration</div></div>
+              <div class="admin-card-body">
+                <div style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.2);border-radius:8px;padding:14px;margin-bottom:20px;font-size:13px;color:var(--admin-charcoal)">
+                  <i class="fas fa-exclamation-triangle" style="color:#f59e0b;margin-right:6px"></i>
+                  <strong>Security Notice:</strong> This demo uses an <strong>unsigned upload preset</strong> which is suitable for development/testing only. For production, implement a signed upload preset with server-side signature generation. <strong>Never expose your API Secret in frontend code.</strong>
+                </div>
+                <div class="admin-form-group">
+                  <label class="admin-label">Cloud Name</label>
+                  <input type="text" id="cloudinary-cloud-name" class="admin-input" placeholder="CLOUDINARY_CLOUD_NAME" value="CLOUDINARY_CLOUD_NAME">
+                  <div class="admin-hint">Found in your Cloudinary dashboard under Account Details</div>
+                </div>
+                <div class="admin-form-group">
+                  <label class="admin-label">Upload Preset (Unsigned)</label>
+                  <input type="text" id="cloudinary-preset" class="admin-input" placeholder="CLOUDINARY_UPLOAD_PRESET" value="CLOUDINARY_UPLOAD_PRESET">
+                  <div class="admin-hint">Create an unsigned upload preset in Cloudinary → Settings → Upload</div>
+                </div>
+                <div class="admin-form-group">
+                  <label class="admin-label">Upload Folder</label>
+                  <input type="text" class="admin-input" value="velocity-cycles/products">
+                  <div class="admin-hint">Images will be organized in this folder in your Cloudinary library</div>
+                </div>
+                <div style="border:1px solid var(--admin-border);border-radius:8px;padding:16px;margin-bottom:20px;background:var(--admin-bg)">
+                  <div style="font-weight:700;font-size:13px;margin-bottom:8px">How to Set Up:</div>
+                  <ol style="font-size:13px;color:var(--admin-medium-gray);line-height:2;padding-left:20px">
+                    <li>Create a free account at <a href="https://cloudinary.com" target="_blank" style="color:#2cc110">cloudinary.com</a></li>
+                    <li>Go to Settings → Upload → Add upload preset</li>
+                    <li>Set Signing Mode to <strong>Unsigned</strong></li>
+                    <li>Copy your Cloud Name and Preset Name above</li>
+                    <li>Update the values in <code style="background:var(--admin-white);padding:1px 6px;border-radius:3px">assets/js/cloudinary.js</code></li>
+                  </ol>
+                </div>
+                <button onclick="saveCloudinarySettings()" class="admin-btn admin-btn-primary"><i class="fas fa-save"></i> Save Cloudinary Config</button>
+              </div>
+            </div>
+
+            <!-- Admin Account -->
+            <div id="section-admin" class="settings-section admin-card" style="display:none">
+              <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-user-shield" style="color:#39ff14;margin-right:8px"></i>Admin Account</div></div>
+              <div class="admin-card-body">
+                <div style="display:flex;align-items:center;gap:16px;padding:20px;background:var(--admin-bg);border-radius:10px;margin-bottom:24px">
+                  <div style="width:60px;height:60px;background:rgba(57,255,20,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;color:#39ff14;font-size:24px;font-weight:800;font-family:'Montserrat',sans-serif">A</div>
+                  <div>
+                    <div style="font-family:'Montserrat',sans-serif;font-size:18px;font-weight:800">Admin User</div>
+                    <div style="color:var(--admin-medium-gray);font-size:13px">admin@velocitycycles.com</div>
+                    <span class="status-badge status-active" style="margin-top:4px;display:inline-flex">Super Admin</span>
+                  </div>
+                </div>
+
+                <div class="admin-form-row">
+                  <div class="admin-form-group"><label class="admin-label">Display Name</label><input type="text" class="admin-input" value="Admin User"></div>
+                  <div class="admin-form-group"><label class="admin-label">Email</label><input type="email" class="admin-input" value="admin@velocitycycles.com"></div>
+                </div>
+
+                <div style="border-top:1px solid var(--admin-border);margin:20px 0;padding-top:20px">
+                  <div style="font-weight:700;font-size:14px;margin-bottom:16px">Change Password</div>
+                  <div class="admin-form-group"><label class="admin-label">Current Password</label><input type="password" class="admin-input" placeholder="Enter current password"></div>
+                  <div class="admin-form-row">
+                    <div class="admin-form-group"><label class="admin-label">New Password</label><input type="password" class="admin-input" placeholder="Min. 8 characters"></div>
+                    <div class="admin-form-group"><label class="admin-label">Confirm Password</label><input type="password" class="admin-input" placeholder="Repeat new password"></div>
+                  </div>
+                </div>
+
+                <div style="background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.1);border-radius:8px;padding:12px;font-size:12px;color:var(--admin-medium-gray);margin-bottom:20px">
+                  <i class="fas fa-info-circle" style="color:#39ff14"></i>
+                  Demo credentials: <strong>admin@velocitycycles.com</strong> / <strong>admin123</strong>. Password changes in this demo are not persisted between sessions.
+                </div>
+
+                <button onclick="saveSettings('admin')" class="admin-btn admin-btn-primary"><i class="fas fa-save"></i> Save Account Settings</button>
+              </div>
+            </div>
+
+            <!-- Shipping -->
+            <div id="section-shipping" class="settings-section admin-card" style="display:none">
+              <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-shipping-fast" style="color:#39ff14;margin-right:8px"></i>Shipping & Tax Settings</div></div>
+              <div class="admin-card-body">
+                <div class="admin-form-row">
+                  <div class="admin-form-group">
+                    <label class="admin-label">Free Shipping Threshold ($)</label>
+                    <input type="number" class="admin-input" value="500" min="0">
+                    <div class="admin-hint">Orders above this amount get free shipping</div>
+                  </div>
+                  <div class="admin-form-group">
+                    <label class="admin-label">Standard Shipping Rate ($)</label>
+                    <input type="number" class="admin-input" value="29.99" min="0" step="0.01">
+                  </div>
+                </div>
+                <div class="admin-form-row">
+                  <div class="admin-form-group">
+                    <label class="admin-label">Tax Rate (%)</label>
+                    <input type="number" class="admin-input" value="8" min="0" max="100" step="0.1">
+                  </div>
+                  <div class="admin-form-group">
+                    <label class="admin-label">Estimated Delivery (days)</label>
+                    <input type="text" class="admin-input" value="2-5">
+                  </div>
+                </div>
+                <div style="border-top:1px solid var(--admin-border);margin:20px 0;padding-top:20px">
+                  <div style="font-weight:700;font-size:14px;margin-bottom:16px">Coupon Codes</div>
+                  <div style="display:flex;flex-direction:column;gap:10px">
+                    ${[['VELOCITY10','10%'],['RIDE20','20%'],['NEWRIDER','15%'],['SAVE25','25%']].map(([code, disc]) => `
+                      <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:var(--admin-bg);border-radius:8px">
+                        <code style="font-size:14px;font-weight:700;color:#2cc110">${code}</code>
+                        <span class="status-badge status-active">${disc} OFF</span>
+                        <button onclick="showAdminToast('Demo','Coupon management requires backend integration.','info')" class="admin-btn admin-btn-outline admin-btn-sm"><i class="fas fa-edit"></i></button>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+                <button onclick="saveSettings('shipping')" class="admin-btn admin-btn-primary"><i class="fas fa-save"></i> Save Shipping Settings</button>
+              </div>
+            </div>
+
+            <!-- Data Management -->
+            <div id="section-data" class="settings-section admin-card" style="display:none">
+              <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-database" style="color:#39ff14;margin-right:8px"></i>Data Management</div></div>
+              <div class="admin-card-body">
+                <div style="background:rgba(239,68,68,0.06);border:1px solid rgba(239,68,68,0.2);border-radius:8px;padding:14px;margin-bottom:24px;font-size:13px">
+                  <i class="fas fa-exclamation-triangle" style="color:#ef4444;margin-right:6px"></i>
+                  <strong>Warning:</strong> These actions modify your LocalStorage data. Data cleared here cannot be recovered.
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:12px">
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border:1px solid var(--admin-border);border-radius:10px">
+                    <div><div style="font-weight:600;margin-bottom:2px">Reset Products to Default</div><div style="font-size:12px;color:var(--admin-light-gray)">Restores all 12 sample bicycle products</div></div>
+                    <button onclick="resetProducts()" class="admin-btn admin-btn-outline"><i class="fas fa-undo"></i> Reset</button>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border:1px solid var(--admin-border);border-radius:10px">
+                    <div><div style="font-weight:600;margin-bottom:2px">Seed Demo Orders</div><div style="font-size:12px;color:var(--admin-light-gray)">Adds 5 demo orders to the system</div></div>
+                    <button onclick="OrdersStore.seedDemoOrders();showAdminToast('Orders Seeded','Demo orders have been added.','success')" class="admin-btn admin-btn-outline"><i class="fas fa-plus-circle"></i> Seed</button>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border:1px solid var(--admin-border);border-radius:10px">
+                    <div><div style="font-weight:600;margin-bottom:2px">Clear All Orders</div><div style="font-size:12px;color:var(--admin-light-gray)">Removes all orders from LocalStorage</div></div>
+                    <button onclick="clearOrders()" class="admin-btn admin-btn-danger"><i class="fas fa-trash"></i> Clear</button>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border:1px solid var(--admin-border);border-radius:10px">
+                    <div><div style="font-weight:600;margin-bottom:2px">Clear Customer Data</div><div style="font-size:12px;color:var(--admin-light-gray)">Removes all registered customer accounts</div></div>
+                    <button onclick="clearCustomers()" class="admin-btn admin-btn-danger"><i class="fas fa-trash"></i> Clear</button>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border:1px solid rgba(239,68,68,0.3);border-radius:10px;background:rgba(239,68,68,0.04)">
+                    <div><div style="font-weight:700;color:#ef4444;margin-bottom:2px">Reset All Data</div><div style="font-size:12px;color:var(--admin-light-gray)">Clears all LocalStorage data and reloads</div></div>
+                    <button onclick="resetAllData()" class="admin-btn admin-btn-danger"><i class="fas fa-bomb"></i> Reset Everything</button>
+                  </div>
+                </div>
+
+                <!-- LocalStorage Usage -->
+                <div style="margin-top:24px">
+                  <div style="font-weight:700;font-size:13px;margin-bottom:12px">LocalStorage Usage</div>
+                  <div id="storage-usage-list" style="display:flex;flex-direction:column;gap:8px"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- About -->
+            <div id="section-about" class="settings-section admin-card" style="display:none">
+              <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-info-circle" style="color:#39ff14;margin-right:8px"></i>About Velocity Cycles Admin</div></div>
+              <div class="admin-card-body">
+                <div style="text-align:center;padding:32px 0;border-bottom:1px solid var(--admin-border);margin-bottom:28px">
+                  <div style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:16px">
+                    <div class="sidebar-logo-icon" style="width:52px;height:52px;font-size:26px"><i class="fas fa-bicycle"></i></div>
+                    <div style="text-align:left">
+                      <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:900">VELOCITY<span style="color:#39ff14">CYCLES</span></div>
+                      <div style="font-size:12px;color:var(--admin-light-gray)">Admin Dashboard</div>
+                    </div>
+                  </div>
+                  <span style="background:rgba(57,255,20,0.1);color:#2cc110;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:700">Version 1.0.0</span>
+                </div>
+
+                <div style="display:grid;gap:12px">
+                  <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--admin-border);font-size:14px">
+                    <span style="color:var(--admin-medium-gray)">Framework</span>
+                    <strong>HTML5 + CSS3 + Vanilla JavaScript</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--admin-border);font-size:14px">
+                    <span style="color:var(--admin-medium-gray)">Data Storage</span>
+                    <strong>Browser LocalStorage</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--admin-border);font-size:14px">
+                    <span style="color:var(--admin-medium-gray)">Image Hosting</span>
+                    <strong>Cloudinary (unsigned preset)</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--admin-border);font-size:14px">
+                    <span style="color:var(--admin-medium-gray)">Icons</span>
+                    <strong>Font Awesome 6.5</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid var(--admin-border);font-size:14px">
+                    <span style="color:var(--admin-medium-gray)">Fonts</span>
+                    <strong>Montserrat, Open Sans (Google Fonts)</strong>
+                  </div>
+                  <div style="display:flex;justify-content:space-between;padding:12px 0;font-size:14px">
+                    <span style="color:var(--admin-medium-gray)">Admin Credentials</span>
+                    <strong>admin@velocitycycles.com / admin123</strong>
+                  </div>
+                </div>
+
+                <div style="margin-top:28px;background:var(--admin-bg);border-radius:10px;padding:20px">
+                  <div style="font-weight:700;margin-bottom:12px">Technology Stack</div>
+                  <div style="display:flex;flex-wrap:wrap;gap:8px">
+                    ${['HTML5','CSS3','JavaScript ES6+','LocalStorage API','Cloudinary','Font Awesome','Google Fonts','Canvas API','CSS Grid','CSS Flexbox'].map(t =>
+                      `<span style="background:rgba(57,255,20,0.1);color:#2cc110;border:1px solid rgba(57,255,20,0.2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600">${t}</span>`
+                    ).join('')}
+                  </div>
+                </div>
+
+                <div style="margin-top:20px;text-align:center">
+                  <a href="../index.html" target="_blank" class="admin-btn admin-btn-primary">
+                    <i class="fas fa-external-link-alt"></i> View Live Store
+                  </a>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cloudinary.js"></script>
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    requireAdminAuth();
+
+    function showSection(name) {
+      // Hide all
+      document.querySelectorAll('.settings-section').forEach(s => s.style.display = 'none');
+      document.getElementById('section-' + name).style.display = 'block';
+
+      // Update nav buttons
+      document.querySelectorAll('.settings-nav-btn').forEach(btn => {
+        const isActive = btn.dataset.section === name;
+        btn.style.background = isActive ? 'var(--admin-charcoal)' : 'transparent';
+        btn.style.color = isActive ? '#fff' : 'var(--admin-medium-gray)';
+      });
+
+      // Render storage usage when data tab opens
+      if (name === 'data') renderStorageUsage();
+    }
+
+    function saveSettings(section) {
+      showAdminToast('Settings Saved', `${capitalize(section)} settings have been updated.`, 'success');
+    }
+
+    function saveCloudinarySettings() {
+      const cloudName = document.getElementById('cloudinary-cloud-name')?.value;
+      const preset = document.getElementById('cloudinary-preset')?.value;
+      localStorage.setItem('vc_cloudinary_config', JSON.stringify({ cloudName, uploadPreset: preset }));
+      showAdminToast('Cloudinary Saved', 'Configuration saved. Update cloudinary.js to apply permanently.', 'success');
+    }
+
+    function resetProducts() {
+      if (!confirm('Reset all products to default? This will overwrite any custom products you added.')) return;
+      localStorage.removeItem('vc_products');
+      ProductsStore.init();
+      showAdminToast('Products Reset', 'All 12 default products restored.', 'success');
+      renderStorageUsage();
+    }
+
+    function clearOrders() {
+      if (!confirm('Delete all orders? This cannot be undone.')) return;
+      localStorage.removeItem('vc_orders');
+      showAdminToast('Orders Cleared', 'All order data removed.', 'success');
+      renderStorageUsage();
+    }
+
+    function clearCustomers() {
+      if (!confirm('Delete all customer accounts? This cannot be undone.')) return;
+      localStorage.removeItem('vc_customers');
+      localStorage.removeItem('vc_current_user');
+      showAdminToast('Customers Cleared', 'All customer data removed.', 'success');
+      renderStorageUsage();
+    }
+
+    function resetAllData() {
+      if (!confirm('RESET EVERYTHING? This will clear ALL data including products, orders, and customers.')) return;
+      if (!confirm('Are you absolutely sure? This cannot be undone!')) return;
+      const adminData = localStorage.getItem('vc_admin_logged_in');
+      const adminUser = localStorage.getItem('vc_admin_user');
+      localStorage.clear();
+      localStorage.setItem('vc_admin_logged_in', adminData);
+      localStorage.setItem('vc_admin_user', adminUser);
+      ProductsStore.init();
+      OrdersStore.seedDemoOrders();
+      showAdminToast('Reset Complete', 'All data cleared and defaults restored.', 'success');
+      setTimeout(() => location.reload(), 1500);
+    }
+
+    function renderStorageUsage() {
+      const container = document.getElementById('storage-usage-list');
+      if (!container) return;
+
+      const keys = [
+        { key: 'vc_products', label: 'Products' },
+        { key: 'vc_orders', label: 'Orders' },
+        { key: 'vc_customers', label: 'Customers' },
+        { key: 'vc_cart', label: 'Cart' },
+        { key: 'vc_wishlist', label: 'Wishlist' },
+        { key: 'vc_subscribers', label: 'Newsletter Subscribers' }
+      ];
+
+      container.innerHTML = keys.map(({ key, label }) => {
+        const data = localStorage.getItem(key);
+        const size = data ? new Blob([data]).size : 0;
+        const count = data ? (Array.isArray(JSON.parse(data)) ? JSON.parse(data).length : 1) : 0;
+        return `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--admin-bg);border-radius:8px;font-size:13px">
+            <span style="font-weight:600">${label}</span>
+            <div style="display:flex;gap:12px;align-items:center">
+              <span style="color:var(--admin-medium-gray)">${count} records</span>
+              <span style="color:var(--admin-light-gray);font-size:11px">${size > 1024 ? (size/1024).toFixed(1) + ' KB' : size + ' B'}</span>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+  </script>
+</body>
+</html>

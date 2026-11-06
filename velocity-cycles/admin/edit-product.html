@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product — Velocity Cycles Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+  <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+</head>
+<body>
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-logo"><div class="sidebar-logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="sidebar-logo-text">VELOCITY<span>CYCLES</span></div><div class="sidebar-logo-badge">ADMIN</div></div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="dashboard.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tachometer-alt"></i></div><span class="sidebar-nav-label">Dashboard</span></a>
+        <div class="nav-section-title">Catalog</div>
+        <a href="products.html" class="sidebar-nav-item active"><div class="sidebar-nav-icon"><i class="fas fa-bicycle"></i></div><span class="sidebar-nav-label">Products</span></a>
+        <a href="add-product.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-plus-circle"></i></div><span class="sidebar-nav-label">Add Product</span></a>
+        <a href="categories.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tags"></i></div><span class="sidebar-nav-label">Categories</span></a>
+        <div class="nav-section-title">Sales</div>
+        <a href="orders.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-shopping-bag"></i></div><span class="sidebar-nav-label">Orders</span></a>
+        <a href="customers.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-users"></i></div><span class="sidebar-nav-label">Customers</span></a>
+        <div class="nav-section-title">System</div>
+        <a href="settings.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-cog"></i></div><span class="sidebar-nav-label">Settings</span></a>
+        <a href="../index.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-external-link-alt"></i></div><span class="sidebar-nav-label">View Store</span></a>
+      </nav>
+      <div class="sidebar-footer"><div class="admin-user-info" onclick="if(confirm('Sign out?')){AuthStore.adminLogout()}"><div class="admin-avatar">A</div><div><div class="admin-user-name">Admin</div><div class="admin-user-role">Super Admin</div></div></div></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <div><div class="admin-page-title" id="edit-page-title">Edit Product</div><div class="admin-breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> <a href="products.html">Products</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> Edit</div></div>
+        </div>
+        <div class="admin-header-right">
+          <button type="button" onclick="deleteThisProduct()" class="admin-btn admin-btn-danger admin-btn-sm"><i class="fas fa-trash"></i> Delete</button>
+          <a href="products.html" class="admin-btn admin-btn-outline"><i class="fas fa-arrow-left"></i> Back</a>
+          <div class="admin-header-user"><div class="admin-avatar" style="font-size:13px">A</div></div>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div id="product-not-found" style="display:none">
+          <div style="text-align:center;padding:80px 24px">
+            <i class="fas fa-search" style="font-size:48px;color:var(--admin-border);margin-bottom:16px;display:block"></i>
+            <h3 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:700;margin-bottom:8px">Product Not Found</h3>
+            <p style="color:var(--admin-medium-gray);margin-bottom:24px">The product you're trying to edit doesn't exist.</p>
+            <a href="products.html" class="admin-btn admin-btn-primary">Back to Products</a>
+          </div>
+        </div>
+
+        <form id="edit-product-form" onsubmit="handleEditProduct(event)" style="display:none">
+          <div style="display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start">
+
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <!-- Basic Info -->
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-edit" style="color:#39ff14;margin-right:8px"></i>Basic Information</div></div>
+                <div class="admin-card-body">
+                  <div class="admin-form-group">
+                    <label class="admin-label">Product Name *</label>
+                    <input type="text" id="product-name" class="admin-input" required>
+                  </div>
+                  <div class="admin-form-row">
+                    <div class="admin-form-group">
+                      <label class="admin-label">Brand *</label>
+                      <input type="text" id="product-brand" class="admin-input" required list="brands-list">
+                      <datalist id="brands-list"><option value="Trek"><option value="Specialized"><option value="Giant"><option value="Cannondale"><option value="Scott"><option value="Canyon"><option value="Yeti"><option value="Santa Cruz"></datalist>
+                    </div>
+                    <div class="admin-form-group">
+                      <label class="admin-label">Category *</label>
+                      <select id="product-category" class="admin-select" required>
+                        <option value="mountain">Mountain Bikes</option>
+                        <option value="road">Road Bikes</option>
+                        <option value="electric">Electric Bikes</option>
+                        <option value="kids">Kids Bikes</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="admin-form-group">
+                    <label class="admin-label">Description *</label>
+                    <textarea id="product-description" class="admin-textarea" rows="5" required></textarea>
+                  </div>
+                  <div class="admin-form-group">
+                    <label class="admin-label">Weight</label>
+                    <input type="text" id="product-weight" class="admin-input" placeholder="e.g. 10.8 kg">
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pricing -->
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-dollar-sign" style="color:#39ff14;margin-right:8px"></i>Pricing</div></div>
+                <div class="admin-card-body">
+                  <div class="admin-form-row">
+                    <div class="admin-form-group">
+                      <label class="admin-label">Regular Price ($) *</label>
+                      <div style="position:relative"><span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--admin-medium-gray);font-weight:700">$</span><input type="number" id="product-price" class="admin-input" style="padding-left:28px" min="0" step="0.01" required></div>
+                    </div>
+                    <div class="admin-form-group">
+                      <label class="admin-label">Sale Price ($)</label>
+                      <div style="position:relative"><span style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--admin-medium-gray);font-weight:700">$</span><input type="number" id="product-discount-price" class="admin-input" style="padding-left:28px" min="0" step="0.01"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Images -->
+              <div class="admin-card">
+                <div class="admin-card-header">
+                  <div class="admin-card-title"><i class="fas fa-images" style="color:#39ff14;margin-right:8px"></i>Product Images</div>
+                  <button type="button" id="open-cloudinary-widget" class="admin-btn admin-btn-primary admin-btn-sm"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+                </div>
+                <div class="admin-card-body">
+                  <div id="image-upload-container">
+                    <div class="image-upload-area" onclick="document.getElementById('fallback-file-input-edit').click()">
+                      <i class="fas fa-plus image-upload-icon" style="font-size:28px"></i>
+                      <p class="image-upload-text">Add more images</p>
+                      <p class="image-upload-hint">Click to select or drag & drop</p>
+                      <input type="file" id="fallback-file-input-edit" multiple accept="image/*" style="display:none">
+                    </div>
+                  </div>
+                  <div id="current-images-container" style="margin-top:12px"></div>
+                  <div style="margin-top:12px">
+                    <div style="display:flex;gap:8px">
+                      <input type="url" id="image-url-input" class="admin-input" placeholder="Add image URL...">
+                      <button type="button" onclick="addEditImageUrl()" class="admin-btn admin-btn-secondary admin-btn-sm" style="white-space:nowrap"><i class="fas fa-plus"></i> Add</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Specs -->
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-list-ul" style="color:#39ff14;margin-right:8px"></i>Specifications</div></div>
+                <div class="admin-card-body">
+                  <div class="admin-form-row">
+                    <div class="admin-form-group"><label class="admin-label">Frame</label><input type="text" class="admin-input spec-input" data-spec="frame"></div>
+                    <div class="admin-form-group"><label class="admin-label">Fork</label><input type="text" class="admin-input spec-input" data-spec="fork"></div>
+                  </div>
+                  <div class="admin-form-row">
+                    <div class="admin-form-group"><label class="admin-label">Drivetrain</label><input type="text" class="admin-input spec-input" data-spec="drivetrain"></div>
+                    <div class="admin-form-group"><label class="admin-label">Brakes</label><input type="text" class="admin-input spec-input" data-spec="brakes"></div>
+                  </div>
+                  <div class="admin-form-row">
+                    <div class="admin-form-group"><label class="admin-label">Wheels</label><input type="text" class="admin-input spec-input" data-spec="wheels"></div>
+                    <div class="admin-form-group"><label class="admin-label">Suspension</label><input type="text" class="admin-input spec-input" data-spec="suspension"></div>
+                  </div>
+                  <div class="admin-form-row">
+                    <div class="admin-form-group"><label class="admin-label">Motor (E-bike)</label><input type="text" class="admin-input spec-input" data-spec="motor"></div>
+                    <div class="admin-form-group"><label class="admin-label">Battery (E-bike)</label><input type="text" class="admin-input spec-input" data-spec="battery"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title">Update</div></div>
+                <div class="admin-card-body">
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+                    <label style="font-size:14px;font-weight:600">Featured Product</label>
+                    <label class="admin-switch"><input type="checkbox" id="product-featured"><div class="switch-slider"></div></label>
+                  </div>
+                  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+                    <label style="font-size:14px;font-weight:600">New Arrival</label>
+                    <label class="admin-switch"><input type="checkbox" id="product-new-arrival"><div class="switch-slider"></div></label>
+                  </div>
+                  <button type="submit" class="admin-btn admin-btn-primary" style="width:100%;justify-content:center;padding:12px">
+                    <i class="fas fa-save"></i> Save Changes
+                  </button>
+                  <a href="products.html" class="admin-btn admin-btn-outline" style="width:100%;justify-content:center;margin-top:8px;display:flex">
+                    <i class="fas fa-times"></i> Cancel
+                  </a>
+                </div>
+              </div>
+
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title">Inventory</div></div>
+                <div class="admin-card-body">
+                  <div class="admin-form-group"><label class="admin-label">Stock Quantity</label><input type="number" id="product-stock" class="admin-input" min="0"></div>
+                  <div class="admin-form-group" style="margin-bottom:0"><label class="admin-label">Rating</label><input type="number" id="product-rating" class="admin-input" min="0" max="5" step="0.1"></div>
+                </div>
+              </div>
+
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title">Sizes</div></div>
+                <div class="admin-card-body">
+                  <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+                    <button type="button" onclick="addQuickSizeEdit('XS')" class="admin-btn admin-btn-outline admin-btn-sm">XS</button>
+                    <button type="button" onclick="addQuickSizeEdit('S')" class="admin-btn admin-btn-outline admin-btn-sm">S</button>
+                    <button type="button" onclick="addQuickSizeEdit('M')" class="admin-btn admin-btn-outline admin-btn-sm">M</button>
+                    <button type="button" onclick="addQuickSizeEdit('L')" class="admin-btn admin-btn-outline admin-btn-sm">L</button>
+                    <button type="button" onclick="addQuickSizeEdit('XL')" class="admin-btn admin-btn-outline admin-btn-sm">XL</button>
+                  </div>
+                  <div class="tags-input-wrap"><div id="sizes-container" style="display:flex;flex-wrap:wrap;gap:6px;width:100%"></div><input type="text" class="tags-input" id="size-input" placeholder="Add size & Enter..."></div>
+                </div>
+              </div>
+
+              <div class="admin-card">
+                <div class="admin-card-header"><div class="admin-card-title">Colors</div></div>
+                <div class="admin-card-body">
+                  <div class="admin-form-row" style="margin-bottom:10px">
+                    <div class="admin-form-group" style="margin-bottom:0"><input type="color" id="color-picker" class="admin-input" value="#1a1a1a" style="height:44px;padding:4px"></div>
+                    <div class="admin-form-group" style="margin-bottom:0"><input type="text" id="color-name-input" class="admin-input" placeholder="Color name"></div>
+                  </div>
+                  <button type="button" id="add-color-btn" class="admin-btn admin-btn-outline admin-btn-sm" style="margin-bottom:10px"><i class="fas fa-plus"></i> Add</button>
+                  <div id="colors-container" style="display:flex;flex-wrap:wrap;gap:8px"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cloudinary.js"></script>
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    requireAdminAuth();
+    let currentProductId = null;
+    let editImageUrls = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const params = new URLSearchParams(window.location.search);
+      const productId = params.get('id');
+
+      if (!productId) { showNotFound(); return; }
+      const product = ProductsStore.getById(productId);
+      if (!product) { showNotFound(); return; }
+
+      currentProductId = productId;
+      document.getElementById('edit-page-title').textContent = 'Edit: ' + product.name;
+      document.getElementById('edit-product-form').style.display = 'block';
+
+      // Fill fields
+      const setVal = (id, val) => { const el = document.getElementById(id); if (el) el.value = val ?? ''; };
+      setVal('product-name', product.name);
+      setVal('product-brand', product.brand);
+      setVal('product-category', product.category);
+      setVal('product-description', product.description);
+      setVal('product-weight', product.weight || '');
+      setVal('product-price', product.price);
+      setVal('product-discount-price', product.discountPrice || '');
+      setVal('product-stock', product.stock);
+      setVal('product-rating', product.rating);
+      if (document.getElementById('product-featured')) document.getElementById('product-featured').checked = product.featured;
+      if (document.getElementById('product-new-arrival')) document.getElementById('product-new-arrival').checked = product.newArrival;
+
+      // Specs
+      if (product.specs) {
+        document.querySelectorAll('.spec-input').forEach(input => {
+          if (product.specs[input.dataset.spec]) input.value = product.specs[input.dataset.spec];
+        });
+      }
+
+      // Sizes
+      const sizesContainer = document.getElementById('sizes-container');
+      if (sizesContainer && product.sizes) {
+        product.sizes.forEach(s => addTag(s, sizesContainer));
+      }
+      initTagsInput('size-input', 'sizes-container');
+
+      // Colors
+      const colorsContainer = document.getElementById('colors-container');
+      if (colorsContainer && product.colors) {
+        product.colors.forEach(c => addColorChip(c, c, colorsContainer));
+      }
+      initColorInput('color-picker', 'colors-container');
+
+      // Images
+      editImageUrls = [...(product.images || [])];
+      refreshEditPreviews();
+
+      // File input
+      document.getElementById('fallback-file-input-edit')?.addEventListener('change', (e) => {
+        Array.from(e.target.files).forEach(file => {
+          const reader = new FileReader();
+          reader.onload = (ev) => { editImageUrls.push(ev.target.result); refreshEditPreviews(); };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      CloudinaryUploader.init('image-upload-container', (urls) => {
+        editImageUrls = [...editImageUrls, ...urls];
+        refreshEditPreviews();
+      });
+    });
+
+    function showNotFound() {
+      document.getElementById('product-not-found').style.display = 'block';
+    }
+
+    function refreshEditPreviews() {
+      const container = document.getElementById('current-images-container');
+      if (!container) return;
+      container.innerHTML = `<div class="image-previews">${editImageUrls.map((url, i) => `
+        <div class="image-preview-item">
+          <img src="${url}" alt="Image ${i+1}" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=60'">
+          <button class="image-preview-remove" type="button" onclick="removeEditImage(${i})"><i class="fas fa-times"></i></button>
+          ${i===0?'<span style="position:absolute;bottom:4px;left:4px;background:var(--admin-primary);color:var(--admin-black);font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px">Main</span>':''}
+        </div>
+      `).join('')}</div>`;
+    }
+
+    function removeEditImage(index) { editImageUrls.splice(index, 1); refreshEditPreviews(); }
+
+    function addEditImageUrl() {
+      const url = document.getElementById('image-url-input').value.trim();
+      if (!url) return;
+      editImageUrls.push(url);
+      document.getElementById('image-url-input').value = '';
+      refreshEditPreviews();
+    }
+
+    function addQuickSizeEdit(size) {
+      const container = document.getElementById('sizes-container');
+      const existing = Array.from(container.querySelectorAll('.tag-chip')).map(el => el.dataset.value || el.textContent.replace('×','').trim());
+      if (!existing.includes(size)) addTag(size, container);
+    }
+
+    function handleEditProduct(e) {
+      e.preventDefault();
+      if (!currentProductId) return;
+      const getData = (id) => document.getElementById(id)?.value?.trim() || '';
+      const specs = {};
+      document.querySelectorAll('.spec-input').forEach(input => { if (input.value.trim()) specs[input.dataset.spec] = input.value.trim(); });
+      const sizes = Array.from(document.querySelectorAll('#sizes-container .tag-chip')).map(el => el.dataset.value || el.textContent.replace('×','').trim()).filter(Boolean);
+      const colors = Array.from(document.querySelectorAll('#colors-container .admin-color-chip')).map(el => el.dataset.color);
+      const cloudinaryUrls = CloudinaryUploader.getUrls();
+      const images = cloudinaryUrls.length > 0 ? cloudinaryUrls : (editImageUrls.length > 0 ? editImageUrls : null);
+
+      const updates = {
+        name: getData('product-name'),
+        brand: getData('product-brand'),
+        category: getData('product-category'),
+        description: getData('product-description'),
+        weight: getData('product-weight') || null,
+        price: parseFloat(getData('product-price')),
+        discountPrice: parseFloat(getData('product-discount-price')) || null,
+        stock: parseInt(getData('product-stock')) || 0,
+        rating: parseFloat(getData('product-rating')) || 0,
+        featured: document.getElementById('product-featured')?.checked || false,
+        newArrival: document.getElementById('product-new-arrival')?.checked || false,
+        specs,
+        sizes: sizes.length > 0 ? sizes : null,
+        colors: colors.length > 0 ? colors : null,
+      };
+      if (images) updates.images = images;
+
+      // Remove null values
+      Object.keys(updates).forEach(k => updates[k] === null && delete updates[k]);
+
+      ProductsStore.update(currentProductId, updates);
+      showAdminToast('Product Updated!', `"${updates.name}" has been saved.`, 'success');
+      setTimeout(() => { window.location.href = 'products.html'; }, 1000);
+    }
+
+    function deleteThisProduct() {
+      const product = ProductsStore.getById(currentProductId);
+      if (!product) return;
+      if (confirm(`Delete "${product.name}"? This cannot be undone.`)) {
+        ProductsStore.delete(currentProductId);
+        showAdminToast('Deleted', `"${product.name}" has been removed.`, 'success');
+        setTimeout(() => { window.location.href = 'products.html'; }, 800);
+      }
+    }
+  </script>
+</body>
+</html>

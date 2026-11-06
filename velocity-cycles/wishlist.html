@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wishlist — Velocity Cycles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="loader-overlay" id="page-loader"><div class="loader-logo">VELOCITY<span>CYCLES</span></div><div class="loader-spinner"></div></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="shop.html"><i class="fas fa-bicycle"></i> All Bikes</a></li>
+              <li><a href="mountain-bikes.html"><i class="fas fa-mountain"></i> Mountain Bikes</a></li>
+              <li><a href="road-bikes.html"><i class="fas fa-road"></i> Road Bikes</a></li>
+              <li><a href="electric-bikes.html"><i class="fas fa-bolt"></i> Electric Bikes</a></li>
+              <li><a href="kids-bikes.html"><i class="fas fa-child"></i> Kids Bikes</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="wishlist.html" class="nav-action-btn"><i class="fas fa-heart" style="color:var(--primary)"></i><span class="nav-badge wishlist-badge" style="display:none">0</span></a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-cart"></i><span class="nav-badge cart-badge" style="display:none">0</span></a>
+          <a href="login.html" class="nav-action-btn" id="nav-auth-btn"><i class="far fa-user"></i></a>
+          <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header" style="padding:120px 0 40px">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=1200&q=60')"></div>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right" style="font-size:10px"></i><span>Wishlist</span></div>
+        <h1 class="page-title">My Wishlist</h1>
+        <p class="page-subtitle">Your saved bikes — keep them close until you're ready to ride.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" style="padding:60px 0 80px">
+
+    <!-- EMPTY WISHLIST -->
+    <div id="wishlist-empty" style="display:none">
+      <div class="empty-state">
+        <div class="empty-icon"><i class="fas fa-heart"></i></div>
+        <h3 class="empty-title">Your Wishlist is Empty</h3>
+        <p class="empty-text">Save the bikes you love by clicking the heart icon. They'll appear here so you can find them again easily.</p>
+        <a href="shop.html" class="btn btn-primary btn-lg">
+          <i class="fas fa-bicycle"></i> Discover Bikes
+        </a>
+      </div>
+    </div>
+
+    <!-- WISHLIST CONTENT -->
+    <div id="wishlist-content" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;flex-wrap:wrap;gap:12px">
+        <div>
+          <h2 style="font-family:var(--font-heading);font-size:22px;font-weight:700">
+            Saved Bikes <span style="color:var(--primary)" id="wishlist-count">0</span>
+          </h2>
+          <p style="color:var(--medium-gray);font-size:14px;margin-top:4px">Bikes you've saved for later</p>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button onclick="moveAllToCart()" class="btn btn-primary btn-sm">
+            <i class="fas fa-shopping-cart"></i> Add All to Cart
+          </button>
+          <button onclick="if(confirm('Clear your wishlist?')){WishlistStore.clear();renderWishlistPage();showToast('Wishlist cleared','','info')}"
+            class="btn btn-sm" style="border:1px solid var(--border-gray);color:var(--medium-gray)">
+            <i class="fas fa-trash-alt"></i> Clear All
+          </button>
+        </div>
+      </div>
+
+      <div class="wishlist-grid" id="wishlist-grid"></div>
+    </div>
+
+    <!-- RECOMMENDED -->
+    <div style="margin-top:80px">
+      <div class="section-header">
+        <span class="section-tag">You Might Like</span>
+        <h2 class="section-title">Recommended <span>For You</span></h2>
+      </div>
+      <div class="products-grid" id="recommended-grid"></div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div></div></a><p>Premium bicycles for every rider.</p></div>
+        <div><h4 class="footer-heading">Shop</h4><ul class="footer-links"><li><a href="mountain-bikes.html">Mountain Bikes</a></li><li><a href="road-bikes.html">Road Bikes</a></li><li><a href="electric-bikes.html">Electric Bikes</a></li></ul></div>
+        <div><h4 class="footer-heading">Help</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4 class="footer-heading">Contact</h4><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container" style="display:flex;justify-content:space-between;width:100%;align-items:center"><p>&copy; 2025 Velocity Cycles.</p><div class="footer-bottom-links"><a href="admin/login.html" style="color:rgba(57,255,20,0.4)">Admin</a></div></div></div>
+  </footer>
+  <button class="back-to-top" id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    function moveAllToCart() {
+      const wishlist = WishlistStore.getAll();
+      let added = 0;
+      wishlist.forEach(item => { if (CartStore.add(item.id)) added++; });
+      showToast('Added to Cart', `${added} bike${added !== 1 ? 's' : ''} added to your cart.`, 'success');
+      renderWishlistPage();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Render recommended products
+      const recGrid = document.getElementById('recommended-grid');
+      if (recGrid) {
+        const wishlistIds = WishlistStore.getAll().map(i => i.id);
+        const recommended = ProductsStore.getFeatured().filter(p => !wishlistIds.includes(p.id)).slice(0, 4);
+        renderProducts(recGrid, recommended);
+      }
+    });
+  </script>
+</body>
+</html>

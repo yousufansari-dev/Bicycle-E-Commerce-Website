@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Road Bikes — Velocity Cycles</title>
+  <meta name="description" content="Shop premium road bikes. Aero, endurance, and gravel bikes from Specialized, Canyon, Trek and more.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="loader-overlay" id="page-loader"><div class="loader-logo">VELOCITY<span>CYCLES</span></div><div class="loader-spinner"></div></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html" class="active">Shop <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="shop.html"><i class="fas fa-bicycle"></i> All Bikes</a></li>
+              <li><a href="mountain-bikes.html"><i class="fas fa-mountain"></i> Mountain Bikes</a></li>
+              <li><a href="road-bikes.html"><i class="fas fa-road"></i> Road Bikes</a></li>
+              <li><a href="electric-bikes.html"><i class="fas fa-bolt"></i> Electric Bikes</a></li>
+              <li><a href="kids-bikes.html"><i class="fas fa-child"></i> Kids Bikes</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="wishlist.html" class="nav-action-btn"><i class="far fa-heart"></i><span class="nav-badge wishlist-badge" style="display:none">0</span></a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-cart"></i><span class="nav-badge cart-badge" style="display:none">0</span></a>
+          <a href="login.html" class="nav-action-btn"><i class="far fa-user"></i></a>
+          <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=1400&q=80')"></div>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right" style="font-size:10px"></i><a href="shop.html">Shop</a><i class="fas fa-chevron-right" style="font-size:10px"></i><span>Road Bikes</span></div>
+        <h1 class="page-title"><i class="fas fa-road" style="color:var(--primary)"></i> Road Bikes</h1>
+        <p class="page-subtitle">Speed meets precision. Discover bikes engineered to set records and break limits.</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="background:var(--black);padding:24px 0;border-bottom:1px solid rgba(255,255,255,0.06)">
+    <div class="container">
+      <div style="display:flex;justify-content:center;gap:48px;flex-wrap:wrap">
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);font-size:13px"><i class="fas fa-tachometer-alt" style="color:var(--primary)"></i> Race-Ready Performance</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);font-size:13px"><i class="fas fa-weight" style="color:var(--primary)"></i> Ultra-Lightweight Frames</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);font-size:13px"><i class="fas fa-wind" style="color:var(--primary)"></i> Aerodynamic Design</div>
+        <div style="display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.7);font-size:13px"><i class="fas fa-tools" style="color:var(--primary)"></i> Expert Assembly</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="shop-layout">
+      <aside class="filters-sidebar">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:800">Filters</h3>
+          <button onclick="clearAllFilters()" style="font-size:12px;color:var(--primary-dark);font-weight:600;background:none;border:none;cursor:pointer">Clear All</button>
+        </div>
+        <div class="filter-section">
+          <div class="filter-title">Search</div>
+          <div style="position:relative"><i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:13px"></i><input type="text" id="product-search-input" class="filter-search" placeholder="Search road bikes..." style="padding-left:36px"></div>
+        </div>
+        <div class="filter-section">
+          <div class="filter-title">Price Range</div>
+          <input type="range" id="price-range-slider" class="range-slider" min="0" max="7000" value="7000">
+          <div class="price-range-inputs">
+            <div><label style="font-size:11px;color:var(--light-gray);display:block;margin-bottom:4px">Min</label><input type="number" id="min-price" value="0" style="width:100%;padding:8px;border:1px solid var(--border-gray);border-radius:4px;font-size:13px"></div>
+            <div><label style="font-size:11px;color:var(--light-gray);display:block;margin-bottom:4px">Max</label><input type="number" id="max-price" value="7000" style="width:100%;padding:8px;border:1px solid var(--border-gray);border-radius:4px;font-size:13px"></div>
+          </div>
+        </div>
+        <div class="filter-section"><div class="filter-title">Brand</div><div class="checkbox-group" id="brand-filters"></div></div>
+        <div class="filter-section" style="border-bottom:none">
+          <div class="filter-title">Sort</div>
+          <select id="sort-select" class="form-control" style="padding:10px 14px;font-size:13px">
+            <option value="default">Featured</option>
+            <option value="price-low">Price: Low to High</option>
+            <option value="price-high">Price: High to Low</option>
+            <option value="rating">Best Rated</option>
+          </select>
+        </div>
+      </aside>
+      <div>
+        <div class="shop-toolbar">
+          <div class="shop-count">Showing <span id="products-count">0</span> road bikes</div>
+          <div style="display:flex;gap:8px"><button class="view-btn active" id="grid-view-btn"><i class="fas fa-th"></i></button><button class="view-btn" id="list-view-btn"><i class="fas fa-list"></i></button></div>
+        </div>
+        <div id="products-wrapper"><div class="products-grid" id="products-grid"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer"><div class="container"><div class="footer-grid"><div class="footer-brand"><a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div></div></a><p>Premium bicycles for every rider.</p><div class="social-links"><a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-link"><i class="fab fa-instagram"></i></a></div></div><div><h4 class="footer-heading">Categories</h4><ul class="footer-links"><li><a href="mountain-bikes.html">Mountain Bikes</a></li><li><a href="road-bikes.html">Road Bikes</a></li><li><a href="electric-bikes.html">Electric Bikes</a></li><li><a href="kids-bikes.html">Kids Bikes</a></li></ul></div><div><h4 class="footer-heading">Help</h4><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div><div><h4 class="footer-heading">Contact</h4><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div><div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>+1 (555) 835-6289</span></div></div></div></div><div class="footer-bottom"><div class="container" style="display:flex;justify-content:space-between;width:100%;align-items:center"><p>&copy; 2025 Velocity Cycles.</p><div class="footer-bottom-links"><a href="admin/login.html" style="color:rgba(57,255,20,0.4)">Admin</a></div></div></div></footer>
+  <button class="back-to-top" id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    const PAGE_CATEGORY = 'road';
+    document.addEventListener('DOMContentLoaded', () => {
+      const brandContainer = document.getElementById('brand-filters');
+      const brands = [...new Set(ProductsStore.getByCategory(PAGE_CATEGORY).map(p => p.brand))];
+      if (brandContainer) brands.forEach(b => { brandContainer.innerHTML += `<label class="checkbox-label"><input type="checkbox" class="brand-filter-cb" value="${b}"> ${b}</label>`; });
+      const products = ProductsStore.getByCategory(PAGE_CATEGORY);
+      renderProducts(document.getElementById('products-grid'), products);
+      document.getElementById('products-count').textContent = products.length;
+      document.getElementById('sort-select')?.addEventListener('change', (e) => {
+        const p = ProductsStore.filter({ category: PAGE_CATEGORY, sortBy: e.target.value });
+        renderProducts(document.getElementById('products-grid'), p);
+        document.getElementById('products-count').textContent = p.length;
+      });
+      document.getElementById('price-range-slider')?.addEventListener('input', (e) => {
+        document.getElementById('max-price').value = e.target.value;
+        const p = ProductsStore.filter({ category: PAGE_CATEGORY, maxPrice: parseInt(e.target.value) });
+        renderProducts(document.getElementById('products-grid'), p);
+        document.getElementById('products-count').textContent = p.length;
+      });
+      let timer;
+      document.getElementById('product-search-input')?.addEventListener('input', (e) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          const q = e.target.value.trim();
+          const all = ProductsStore.getByCategory(PAGE_CATEGORY);
+          const filtered = q.length >= 2 ? all.filter(p => p.name.toLowerCase().includes(q.toLowerCase()) || p.brand.toLowerCase().includes(q.toLowerCase())) : all;
+          renderProducts(document.getElementById('products-grid'), filtered);
+          document.getElementById('products-count').textContent = filtered.length;
+        }, 300);
+      });
+    });
+    function clearAllFilters() {
+      const p = ProductsStore.getByCategory(PAGE_CATEGORY);
+      renderProducts(document.getElementById('products-grid'), p);
+      document.getElementById('products-count').textContent = p.length;
+    }
+  </script>
+</body>
+</html>

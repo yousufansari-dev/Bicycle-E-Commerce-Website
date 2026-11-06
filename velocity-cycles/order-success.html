@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed! — Velocity Cycles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <style>
+    @keyframes checkmark { 0% { stroke-dashoffset: 100; } 100% { stroke-dashoffset: 0; } }
+    @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 80% { transform: scale(1.1); } 100% { transform: scale(1); opacity: 1; } }
+    .success-circle { animation: popIn 0.6s ease forwards; }
+    .confetti-piece { position: fixed; width: 10px; height: 10px; animation: fall linear forwards; pointer-events: none; border-radius: 2px; }
+    @keyframes fall { 0% { transform: translateY(-100px) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+  </style>
+</head>
+<body>
+  <div class="loader-overlay" id="page-loader"><div class="loader-logo">VELOCITY<span>CYCLES</span></div><div class="loader-spinner"></div></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div></a>
+        <div style="display:flex;align-items:center;gap:16px">
+          <a href="shop.html" style="color:rgba(255,255,255,0.7);font-size:13px;display:flex;align-items:center;gap:6px;font-family:var(--font-heading);font-weight:600"><i class="fas fa-bicycle"></i> Continue Shopping</a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-cart"></i><span class="nav-badge cart-badge" style="display:none">0</span></a>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <section class="order-success-section" style="padding:120px 0 80px">
+    <div class="container">
+      <div style="max-width:700px;margin:0 auto;text-align:center">
+
+        <!-- Success Icon -->
+        <div class="success-icon-wrap success-circle" style="width:110px;height:110px">
+          <i class="fas fa-check" style="font-size:52px;color:var(--success)"></i>
+        </div>
+
+        <!-- Heading -->
+        <div style="margin-bottom:8px">
+          <span class="section-tag">Order Confirmed</span>
+        </div>
+        <h1 style="font-family:var(--font-heading);font-size:clamp(28px,5vw,48px);font-weight:900;color:var(--black);line-height:1.1;margin-bottom:16px">
+          You're Going to <span style="color:var(--primary)">Love This Ride!</span>
+        </h1>
+        <p style="font-size:16px;color:var(--medium-gray);line-height:1.7;max-width:520px;margin:0 auto 40px">
+          Your order has been successfully placed and confirmed. You'll receive a confirmation email at <strong id="success-email" style="color:var(--black)">your email</strong> with tracking details.
+        </p>
+
+        <!-- Order Details Cards -->
+        <div class="order-details-grid" style="margin:0 0 40px">
+          <div class="order-detail-card">
+            <div class="order-detail-label">Order Number</div>
+            <div class="order-detail-value" id="success-order-id" style="color:var(--primary);font-size:14px">VC-00000000</div>
+          </div>
+          <div class="order-detail-card">
+            <div class="order-detail-label">Customer</div>
+            <div class="order-detail-value" id="success-customer-name">—</div>
+          </div>
+          <div class="order-detail-card">
+            <div class="order-detail-label">Order Total</div>
+            <div class="order-detail-value" id="success-order-total" style="color:var(--success)">$0.00</div>
+          </div>
+          <div class="order-detail-card">
+            <div class="order-detail-label">Items Ordered</div>
+            <div class="order-detail-value"><span id="success-items-count">0</span> item(s)</div>
+          </div>
+        </div>
+
+        <!-- Delivery Timeline -->
+        <div style="background:var(--bg-light);border-radius:16px;padding:32px;margin-bottom:40px;text-align:left">
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;margin-bottom:24px;text-align:center">
+            <i class="fas fa-shipping-fast" style="color:var(--primary)"></i> Estimated Delivery Timeline
+          </h3>
+          <div style="display:flex;align-items:flex-start;justify-content:center;gap:0;flex-wrap:wrap">
+            <div style="text-align:center;padding:0 20px">
+              <div style="width:44px;height:44px;background:var(--success);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px"><i class="fas fa-check"></i></div>
+              <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;margin-bottom:2px">Order Placed</div>
+              <div style="font-size:12px;color:var(--medium-gray)">Today</div>
+            </div>
+            <div style="flex:1;height:2px;background:var(--border-gray);margin-top:22px;min-width:40px;max-width:80px"></div>
+            <div style="text-align:center;padding:0 20px">
+              <div style="width:44px;height:44px;background:var(--warning);color:var(--white);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px"><i class="fas fa-box"></i></div>
+              <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;margin-bottom:2px">Processing</div>
+              <div style="font-size:12px;color:var(--medium-gray)">1–2 days</div>
+            </div>
+            <div style="flex:1;height:2px;background:var(--border-gray);margin-top:22px;min-width:40px;max-width:80px"></div>
+            <div style="text-align:center;padding:0 20px">
+              <div style="width:44px;height:44px;background:var(--border-gray);color:var(--light-gray);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px"><i class="fas fa-truck"></i></div>
+              <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;margin-bottom:2px">Shipped</div>
+              <div style="font-size:12px;color:var(--medium-gray)">2–3 days</div>
+            </div>
+            <div style="flex:1;height:2px;background:var(--border-gray);margin-top:22px;min-width:40px;max-width:80px"></div>
+            <div style="text-align:center;padding:0 20px">
+              <div style="width:44px;height:44px;background:var(--border-gray);color:var(--light-gray);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 8px;font-size:18px"><i class="fas fa-home"></i></div>
+              <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;margin-bottom:2px">Delivered</div>
+              <div style="font-size:12px;color:var(--medium-gray)">2–5 days total</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What's Next -->
+        <div style="background:var(--black);border-radius:16px;padding:32px;margin-bottom:40px;text-align:left">
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--white);margin-bottom:20px;text-align:center">
+            What Happens Next?
+          </h3>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;background:rgba(57,255,20,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:14px;flex-shrink:0">1</div>
+              <div><div style="font-weight:600;color:var(--white);font-size:14px;margin-bottom:2px">Confirmation Email</div><div style="color:rgba(255,255,255,0.5);font-size:13px">You'll receive an order confirmation with full details within minutes.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;background:rgba(57,255,20,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:14px;flex-shrink:0">2</div>
+              <div><div style="font-weight:600;color:var(--white);font-size:14px;margin-bottom:2px">Professional Assembly</div><div style="color:rgba(255,255,255,0.5);font-size:13px">Our certified mechanics assemble and safety-check your bike before dispatch.</div></div>
+            </div>
+            <div style="display:flex;gap:14px;align-items:flex-start">
+              <div style="width:32px;height:32px;background:rgba(57,255,20,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:14px;flex-shrink:0">3</div>
+              <div><div style="font-weight:600;color:var(--white);font-size:14px;margin-bottom:2px">Shipping Notification</div><div style="color:rgba(255,255,255,0.5);font-size:13px">Once shipped, you'll get a tracking number to follow your delivery in real-time.</div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:48px">
+          <a href="shop.html" class="btn btn-primary btn-lg">
+            <i class="fas fa-bicycle"></i> Continue Shopping
+          </a>
+          <a href="index.html" class="btn btn-outline btn-lg">
+            <i class="fas fa-home"></i> Back to Home
+          </a>
+        </div>
+
+        <!-- Share -->
+        <div style="border-top:1px solid var(--border-gray);padding-top:32px">
+          <p style="font-size:14px;color:var(--medium-gray);margin-bottom:16px">Share your new ride with the world! 🎉</p>
+          <div style="display:flex;gap:12px;justify-content:center">
+            <a href="https://www.facebook.com/sharer.php" target="_blank" class="btn btn-sm" style="background:#1877f2;color:#fff;border:none"><i class="fab fa-facebook-f"></i> Facebook</a>
+            <a href="https://twitter.com/intent/tweet?text=Just+ordered+my+dream+bike+from+Velocity+Cycles!" target="_blank" class="btn btn-sm" style="background:#1da1f2;color:#fff;border:none"><i class="fab fa-twitter"></i> Twitter</a>
+            <a href="https://www.instagram.com" target="_blank" class="btn btn-sm" style="background:linear-gradient(135deg,#e1306c,#fd1d1d,#fcb045);color:#fff;border:none"><i class="fab fa-instagram"></i> Instagram</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDED PRODUCTS -->
+  <section style="padding:60px 0 80px;background:var(--bg-light)">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Keep Exploring</span>
+        <h2 class="section-title">You Might Also <span>Like</span></h2>
+      </div>
+      <div class="products-grid" id="recommended-grid"></div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div></div></a><p>Premium bicycles for every rider.</p></div>
+        <div><h4 class="footer-heading">Shop</h4><ul class="footer-links"><li><a href="mountain-bikes.html">Mountain Bikes</a></li><li><a href="road-bikes.html">Road Bikes</a></li><li><a href="electric-bikes.html">Electric Bikes</a></li></ul></div>
+        <div><h4 class="footer-heading">Help</h4><ul class="footer-links"><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4 class="footer-heading">Contact</h4><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container" style="display:flex;justify-content:space-between;width:100%;align-items:center"><p>&copy; 2025 Velocity Cycles.</p></div></div>
+  </footer>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Confetti effect
+    function launchConfetti() {
+      const colors = ['#39ff14', '#ffffff', '#1a1a1a', '#ffa500', '#c9184a'];
+      for (let i = 0; i < 60; i++) {
+        setTimeout(() => {
+          const piece = document.createElement('div');
+          piece.className = 'confetti-piece';
+          piece.style.cssText = `
+            left: ${Math.random() * 100}vw;
+            background: ${colors[Math.floor(Math.random() * colors.length)]};
+            width: ${Math.random() * 10 + 5}px;
+            height: ${Math.random() * 10 + 5}px;
+            animation-duration: ${Math.random() * 2 + 1.5}s;
+            animation-delay: ${Math.random() * 0.5}s;
+            border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+          `;
+          document.body.appendChild(piece);
+          setTimeout(() => piece.remove(), 3000);
+        }, i * 30);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      launchConfetti();
+
+      // Render recommended products
+      const recGrid = document.getElementById('recommended-grid');
+      if (recGrid) renderProducts(recGrid, ProductsStore.getBestSellers().slice(0, 4));
+    });
+  </script>
+</body>
+</html>

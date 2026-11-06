@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us — Velocity Cycles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="loader-overlay" id="page-loader"><div class="loader-logo">VELOCITY<span>CYCLES</span></div><div class="loader-spinner"></div></div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div></a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="shop.html">Shop <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="shop.html"><i class="fas fa-bicycle"></i> All Bikes</a></li>
+              <li><a href="mountain-bikes.html"><i class="fas fa-mountain"></i> Mountain Bikes</a></li>
+              <li><a href="road-bikes.html"><i class="fas fa-road"></i> Road Bikes</a></li>
+              <li><a href="electric-bikes.html"><i class="fas fa-bolt"></i> Electric Bikes</a></li>
+              <li><a href="kids-bikes.html"><i class="fas fa-child"></i> Kids Bikes</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html" class="active">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="wishlist.html" class="nav-action-btn"><i class="far fa-heart"></i><span class="nav-badge wishlist-badge" style="display:none">0</span></a>
+          <a href="cart.html" class="nav-action-btn"><i class="fas fa-shopping-cart"></i><span class="nav-badge cart-badge" style="display:none">0</span></a>
+          <a href="login.html" class="nav-action-btn" id="nav-auth-btn"><i class="far fa-user"></i></a>
+          <button class="menu-toggle" id="menu-toggle"><span></span><span></span><span></span></button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1502744688674-c619d1586c9e?w=1400&q=80')"></div>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <div class="breadcrumb"><a href="index.html">Home</a><i class="fas fa-chevron-right" style="font-size:10px"></i><span>Contact</span></div>
+        <h1 class="page-title">Get In Touch</h1>
+        <p class="page-subtitle">Our team of cycling experts is here to help you find your perfect ride.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="contact-layout">
+      <!-- CONTACT INFO -->
+      <div class="contact-info-card fade-in">
+        <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:800;color:var(--white);margin-bottom:8px">We'd Love to Hear From You</h2>
+        <p style="color:rgba(255,255,255,0.6);font-size:15px;margin-bottom:36px;line-height:1.7">Whether you need help choosing a bike, have a question about your order, or just want to talk cycling — we're here.</p>
+
+        <div style="display:flex;flex-direction:column;gap:24px;margin-bottom:40px">
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="width:48px;height:48px;background:rgba(57,255,20,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:20px;flex-shrink:0"><i class="fas fa-map-marker-alt"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px">Visit Our Store</div>
+              <div style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.6">1234 Cycle Lane, Denver<br>Colorado 80201, USA</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="width:48px;height:48px;background:rgba(57,255,20,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:20px;flex-shrink:0"><i class="fas fa-phone-alt"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px">Call Us</div>
+              <div style="color:rgba(255,255,255,0.6);font-size:14px">+1 (555) 835-6289</div>
+              <div style="color:rgba(255,255,255,0.4);font-size:12px">Mon–Sat, 9am–6pm MST</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="width:48px;height:48px;background:rgba(57,255,20,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:20px;flex-shrink:0"><i class="fas fa-envelope"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px">Email Us</div>
+              <div style="color:rgba(255,255,255,0.6);font-size:14px">hello@velocitycycles.com</div>
+              <div style="color:rgba(255,255,255,0.4);font-size:12px">We reply within 24 hours</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:16px;align-items:flex-start">
+            <div style="width:48px;height:48px;background:rgba(57,255,20,0.1);border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--primary);font-size:20px;flex-shrink:0"><i class="fas fa-clock"></i></div>
+            <div>
+              <div style="font-family:var(--font-heading);font-size:14px;font-weight:700;color:var(--white);margin-bottom:4px">Store Hours</div>
+              <div style="color:rgba(255,255,255,0.6);font-size:14px;line-height:1.8">Mon–Fri: 9am – 6pm<br>Saturday: 9am – 5pm<br>Sunday: 11am – 4pm</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="border-top:1px solid rgba(255,255,255,0.08);padding-top:32px">
+          <div style="font-family:var(--font-heading);font-size:13px;font-weight:700;color:rgba(255,255,255,0.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px">Follow Us</div>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-strava"></i></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTACT FORM -->
+      <div class="contact-form-card fade-in fade-in-delay-2">
+        <h2 style="font-family:var(--font-heading);font-size:24px;font-weight:800;margin-bottom:8px">Send Us a Message</h2>
+        <p style="color:var(--medium-gray);font-size:15px;margin-bottom:32px">Fill in the form below and we'll get back to you within 24 hours.</p>
+
+        <form id="contact-form" onsubmit="handleContactForm(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name *</label>
+              <input type="text" id="contact-firstname" class="form-control" placeholder="John" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name *</label>
+              <input type="text" id="contact-lastname" class="form-control" placeholder="Smith" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Email Address *</label>
+              <input type="email" id="contact-email" class="form-control" placeholder="you@example.com" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Phone Number</label>
+              <input type="tel" id="contact-phone" class="form-control" placeholder="+1 (555) 000-0000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject *</label>
+            <select id="contact-subject" class="form-control" required>
+              <option value="">Select a topic</option>
+              <option>Product Enquiry</option>
+              <option>Order Status</option>
+              <option>Returns & Exchanges</option>
+              <option>Technical Support</option>
+              <option>Bike Fitting Advice</option>
+              <option>Wholesale / B2B</option>
+              <option>General Question</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message *</label>
+            <textarea id="contact-message" class="form-control" rows="5" placeholder="Tell us how we can help you today..." required style="resize:vertical"></textarea>
+          </div>
+          <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;margin-bottom:24px">
+            <input type="checkbox" id="contact-consent" required style="margin-top:3px;accent-color:var(--primary);width:16px;height:16px">
+            <label for="contact-consent" style="font-size:13px;color:var(--medium-gray);cursor:pointer">I agree to the <a href="#" style="color:var(--primary-dark)">Privacy Policy</a> and consent to being contacted about my enquiry.</label>
+          </div>
+          <button type="submit" class="btn btn-primary btn-lg" style="width:100%;justify-content:center">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- MAP PLACEHOLDER -->
+ 
+<div class="contact-map fade-in" style="margin:0 0 80px;border-radius:16px;overflow:hidden;border:1px solid var(--border-gray)">
+    <iframe
+        src="https://www.google.com/maps?q=Karachi,Pakistan&output=embed"
+        width="100%"
+        height="400"
+        style="border:0;display:block"
+        allowfullscreen
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        title="Zeynova Tech Location - Karachi Pakistan">
+    </iframe>
+</div>
+
+  </div>
+
+  <!-- FAQ -->
+  <section style="padding:60px 0;background:var(--bg-light)">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Quick Answers</span>
+        <h2 class="section-title">Frequently Asked <span>Questions</span></h2>
+      </div>
+      <div style="max-width:720px;margin:0 auto">
+        <div class="faq-item" style="border:1px solid var(--border-gray);border-radius:12px;margin-bottom:12px;overflow:hidden">
+          <button onclick="toggleFaq(this)" style="width:100%;text-align:left;padding:20px 24px;background:var(--white);font-family:var(--font-heading);font-size:15px;font-weight:600;display:flex;justify-content:space-between;align-items:center;border:none;cursor:pointer">
+            How long does shipping take? <i class="fas fa-plus"></i>
+          </button>
+          <div style="display:none;padding:0 24px 20px;background:var(--white);font-size:14px;color:var(--medium-gray);line-height:1.7">Standard shipping takes 2–5 business days within the continental US. All bikes are professionally assembled and safety-checked before dispatch. You'll receive a tracking number once your order ships.</div>
+        </div>
+        <div class="faq-item" style="border:1px solid var(--border-gray);border-radius:12px;margin-bottom:12px;overflow:hidden">
+          <button onclick="toggleFaq(this)" style="width:100%;text-align:left;padding:20px 24px;background:var(--white);font-family:var(--font-heading);font-size:15px;font-weight:600;display:flex;justify-content:space-between;align-items:center;border:none;cursor:pointer">
+            What is your return policy? <i class="fas fa-plus"></i>
+          </button>
+          <div style="display:none;padding:0 24px 20px;background:var(--white);font-size:14px;color:var(--medium-gray);line-height:1.7">We offer a 30-day hassle-free return policy on all items. Products must be returned in original, unused condition with original packaging. Full refunds are processed within 5 business days of receipt.</div>
+        </div>
+        <div class="faq-item" style="border:1px solid var(--border-gray);border-radius:12px;margin-bottom:12px;overflow:hidden">
+          <button onclick="toggleFaq(this)" style="width:100%;text-align:left;padding:20px 24px;background:var(--white);font-family:var(--font-heading);font-size:15px;font-weight:600;display:flex;justify-content:space-between;align-items:center;border:none;cursor:pointer">
+            Do you offer bike fitting services? <i class="fas fa-plus"></i>
+          </button>
+          <div style="display:none;padding:0 24px 20px;background:var(--white);font-size:14px;color:var(--medium-gray);line-height:1.7">Yes! We offer professional bike fitting services at our Denver store. A proper fit can dramatically improve your performance and comfort. Contact us to schedule an appointment with one of our certified fitters.</div>
+        </div>
+        <div class="faq-item" style="border:1px solid var(--border-gray);border-radius:12px;margin-bottom:12px;overflow:hidden">
+          <button onclick="toggleFaq(this)" style="width:100%;text-align:left;padding:20px 24px;background:var(--white);font-family:var(--font-heading);font-size:15px;font-weight:600;display:flex;justify-content:space-between;align-items:center;border:none;cursor:pointer">
+            What warranty comes with bikes? <i class="fas fa-plus"></i>
+          </button>
+          <div style="display:none;padding:0 24px 20px;background:var(--white);font-size:14px;color:var(--medium-gray);line-height:1.7">Every bike sold through Velocity Cycles comes with the full manufacturer's warranty, which is typically 2 years on the frame and 1 year on components. We also provide our own customer satisfaction guarantee for the first 30 days.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand"><a href="index.html" class="logo"><div class="logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="logo-text">VELOCITY<span>CYCLES</span></div></div></a><p>Premium bicycles for every rider.</p><div class="social-links"><a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a><a href="#" class="social-link"><i class="fab fa-instagram"></i></a><a href="#" class="social-link"><i class="fab fa-twitter"></i></a></div></div>
+        <div><h4 class="footer-heading">Shop</h4><ul class="footer-links"><li><a href="mountain-bikes.html">Mountain Bikes</a></li><li><a href="road-bikes.html">Road Bikes</a></li><li><a href="electric-bikes.html">Electric Bikes</a></li><li><a href="kids-bikes.html">Kids Bikes</a></li></ul></div>
+        <div><h4 class="footer-heading">Company</h4><ul class="footer-links"><li><a href="about.html">About Us</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div><h4 class="footer-heading">Contact</h4><div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div><div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>+92 (333) 333-3333</span></div></div>
+      </div>
+    </div>
+    <div class="footer-bottom"><div class="container" style="display:flex;justify-content:space-between;width:100%;align-items:center"><p>&copy; 2025 Velocity Cycles.</p><div class="footer-bottom-links"><a href="admin/login.html" style="color:rgba(57,255,20,0.4)">Admin</a></div></div></div>
+  </footer>
+  <button class="back-to-top" id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    function handleContactForm(e) {
+      e.preventDefault();
+      showToast('Message Sent!', "Thanks for reaching out! We'll reply within 24 hours.", 'success');
+      e.target.reset();
+    }
+
+    function toggleFaq(btn) {
+      const content = btn.nextElementSibling;
+      const icon = btn.querySelector('i');
+      const isOpen = content.style.display === 'block';
+      // Close all
+      document.querySelectorAll('.faq-item button + div').forEach(d => d.style.display = 'none');
+      document.querySelectorAll('.faq-item button i').forEach(i => i.className = 'fas fa-plus');
+      if (!isOpen) {
+        content.style.display = 'block';
+        icon.className = 'fas fa-minus';
+      }
+    }
+  </script>
+</body>
+</html>

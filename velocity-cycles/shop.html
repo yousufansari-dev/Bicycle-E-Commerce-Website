@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop All Bikes — Velocity Cycles</title>
+  <meta name="description" content="Browse our complete collection of premium bicycles. Filter by category, brand, price and more.">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+
+  <div class="loader-overlay" id="page-loader">
+    <div class="loader-logo">VELOCITY<span>CYCLES</span></div>
+    <div class="loader-spinner"></div>
+  </div>
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- HEADER -->
+  <header class="header solid" id="main-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="logo">
+          <div class="logo-icon"><i class="fas fa-bicycle"></i></div>
+          <div>
+            <div class="logo-text">VELOCITY<span>CYCLES</span></div>
+            <div class="logo-tagline">Ride Beyond Limits</div>
+          </div>
+        </a>
+        <ul class="nav-links" id="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li>
+            <a href="shop.html" class="active">Shop <i class="fas fa-chevron-down" style="font-size:10px"></i></a>
+            <ul class="dropdown-menu">
+              <li><a href="shop.html"><i class="fas fa-bicycle"></i> All Bikes</a></li>
+              <li><a href="mountain-bikes.html"><i class="fas fa-mountain"></i> Mountain Bikes</a></li>
+              <li><a href="road-bikes.html"><i class="fas fa-road"></i> Road Bikes</a></li>
+              <li><a href="electric-bikes.html"><i class="fas fa-bolt"></i> Electric Bikes</a></li>
+              <li><a href="kids-bikes.html"><i class="fas fa-child"></i> Kids Bikes</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-actions">
+          <a href="wishlist.html" class="nav-action-btn" title="Wishlist">
+            <i class="far fa-heart"></i>
+            <span class="nav-badge wishlist-badge" style="display:none">0</span>
+          </a>
+          <a href="cart.html" class="nav-action-btn" title="Cart">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="nav-badge cart-badge" style="display:none">0</span>
+          </a>
+          <a href="login.html" class="nav-action-btn" id="nav-auth-btn" title="Account">
+            <i class="far fa-user"></i>
+          </a>
+          <button class="menu-toggle" id="menu-toggle" aria-label="Toggle navigation">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1400&q=80')"></div>
+    <div class="page-header-overlay"></div>
+    <div class="container">
+      <div class="page-header-content">
+        <div class="breadcrumb">
+          <a href="index.html">Home</a>
+          <i class="fas fa-chevron-right" style="font-size:10px"></i>
+          <span>Shop</span>
+        </div>
+        <h1 class="page-title">All Bicycles</h1>
+        <p class="page-subtitle">Explore our complete collection of premium bikes for every terrain and rider.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SHOP LAYOUT -->
+  <div class="container">
+    <div class="shop-layout">
+
+      <!-- SIDEBAR FILTERS -->
+      <aside class="filters-sidebar" id="filters-sidebar">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px">
+          <h3 style="font-family:var(--font-heading);font-size:16px;font-weight:800">Filters</h3>
+          <button onclick="clearAllFilters()" style="font-size:12px;color:var(--primary-dark);font-weight:600;background:none;border:none;cursor:pointer">
+            Clear All
+          </button>
+        </div>
+
+        <!-- Search -->
+        <div class="filter-section">
+          <div class="filter-title">Search</div>
+          <div style="position:relative">
+            <i class="fas fa-search" style="position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:13px"></i>
+            <input type="text" id="product-search-input" class="filter-search" placeholder="Search bikes..." style="padding-left:36px">
+          </div>
+        </div>
+
+        <!-- Category -->
+        <div class="filter-section">
+          <div class="filter-title">Category</div>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="radio" name="category-filter" class="category-filter-cb" value="all" checked> All Categories
+            </label>
+            <label class="checkbox-label">
+              <input type="radio" name="category-filter" class="category-filter-cb" value="mountain"> Mountain Bikes
+            </label>
+            <label class="checkbox-label">
+              <input type="radio" name="category-filter" class="category-filter-cb" value="road"> Road Bikes
+            </label>
+            <label class="checkbox-label">
+              <input type="radio" name="category-filter" class="category-filter-cb" value="electric"> Electric Bikes
+            </label>
+            <label class="checkbox-label">
+              <input type="radio" name="category-filter" class="category-filter-cb" value="kids"> Kids Bikes
+            </label>
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-section">
+          <div class="filter-title">Price Range</div>
+          <input type="range" id="price-range-slider" class="range-slider" min="0" max="7000" value="7000">
+          <div class="price-range-inputs">
+            <div>
+              <label style="font-size:11px;color:var(--light-gray);display:block;margin-bottom:4px">Min Price</label>
+              <input type="number" id="min-price" value="0" min="0" max="7000" style="width:100%;padding:8px;border:1px solid var(--border-gray);border-radius:4px;font-size:13px">
+            </div>
+            <div>
+              <label style="font-size:11px;color:var(--light-gray);display:block;margin-bottom:4px">Max Price</label>
+              <input type="number" id="max-price" value="7000" min="0" max="7000" style="width:100%;padding:8px;border:1px solid var(--border-gray);border-radius:4px;font-size:13px">
+            </div>
+          </div>
+        </div>
+
+        <!-- Brands -->
+        <div class="filter-section">
+          <div class="filter-title">Brand</div>
+          <div class="checkbox-group" id="brand-filters">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <!-- Quick Filters -->
+        <div class="filter-section" style="border-bottom:none">
+          <div class="filter-title">Quick Filters</div>
+          <div class="checkbox-group">
+            <label class="checkbox-label">
+              <input type="checkbox" id="filter-featured"> Featured Only
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="filter-new"> New Arrivals
+            </label>
+            <label class="checkbox-label">
+              <input type="checkbox" id="filter-sale"> On Sale
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- PRODUCTS AREA -->
+      <div>
+        <div class="shop-toolbar">
+          <div class="shop-count">
+            Showing <span id="products-count">0</span> products
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div class="shop-sort">
+              <label for="sort-select">Sort by:</label>
+              <select id="sort-select" class="sort-select">
+                <option value="default">Featured</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="rating">Best Rated</option>
+                <option value="newest">Newest First</option>
+                <option value="name">Name A–Z</option>
+              </select>
+            </div>
+            <div class="view-toggle">
+              <button class="view-btn active" id="grid-view-btn" title="Grid View"><i class="fas fa-th"></i></button>
+              <button class="view-btn" id="list-view-btn" title="List View"><i class="fas fa-list"></i></button>
+            </div>
+          </div>
+        </div>
+
+        <div id="products-wrapper">
+          <div class="products-grid" id="products-grid">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+
+        <div class="pagination" id="pagination-container"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NEWSLETTER -->
+  <section class="newsletter-section" style="margin-top:0">
+    <div class="container">
+      <div class="newsletter-content">
+        <div class="newsletter-text">
+          <h2 class="section-title" style="color:var(--white);text-align:left">Never Miss a Deal</h2>
+          <p class="section-subtitle" style="text-align:left;color:rgba(255,255,255,0.5)">Subscribe for exclusive offers, new arrivals, and cycling tips.</p>
+        </div>
+        <div class="newsletter-form-wrap">
+          <form class="newsletter-form">
+            <div class="input-group">
+              <input type="email" placeholder="Enter your email address" required>
+              <button type="submit" class="btn btn-primary"><i class="fas fa-paper-plane"></i> Subscribe</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon"><i class="fas fa-bicycle"></i></div>
+            <div><div class="logo-text">VELOCITY<span>CYCLES</span></div><div class="logo-tagline">Ride Beyond Limits</div></div>
+          </a>
+          <p>Premium bicycles for every rider.</p>
+          <div class="social-links">
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer-heading">Shop</h4>
+          <ul class="footer-links">
+            <li><a href="mountain-bikes.html">Mountain Bikes</a></li>
+            <li><a href="road-bikes.html">Road Bikes</a></li>
+            <li><a href="electric-bikes.html">Electric Bikes</a></li>
+            <li><a href="kids-bikes.html">Kids Bikes</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Help</h4>
+          <ul class="footer-links">
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer-heading">Contact</h4>
+          <div class="footer-contact-item"><i class="fas fa-envelope"></i><span>hello@velocitycycles.com</span></div>
+          <div class="footer-contact-item"><i class="fas fa-phone-alt"></i><span>+1 (555) 835-6289</span></div>
+          <div class="footer-contact-item"><i class="fas fa-clock"></i><span>Mon–Sat: 9am–6pm MST</span></div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container" style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;width:100%;align-items:center">
+        <p>&copy; 2025 Velocity Cycles. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy</a>
+          <a href="#">Terms</a>
+          <a href="admin/login.html" style="color:rgba(57,255,20,0.4)">Admin</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="back-to-top"><i class="fas fa-chevron-up"></i></button>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    // Populate brand filter checkboxes
+    document.addEventListener('DOMContentLoaded', () => {
+      const brandContainer = document.getElementById('brand-filters');
+      if (brandContainer) {
+        ProductsStore.getBrands().forEach(brand => {
+          const count = ProductsStore.getAll().filter(p => p.brand === brand).length;
+          brandContainer.innerHTML += `
+            <label class="checkbox-label">
+              <input type="checkbox" class="brand-filter-cb" value="${brand}"> ${brand} (${count})
+            </label>
+          `;
+        });
+      }
+
+      // Handle URL params for pre-filtered view
+      const urlParams = new URLSearchParams(window.location.search);
+      const cat = urlParams.get('category');
+      if (cat) {
+        const radio = document.querySelector(`.category-filter-cb[value="${cat}"]`);
+        if (radio) radio.checked = true;
+      }
+    });
+
+    function clearAllFilters() {
+      document.querySelectorAll('.category-filter-cb').forEach(cb => cb.checked = false);
+      document.querySelector('.category-filter-cb[value="all"]').checked = true;
+      document.querySelectorAll('.brand-filter-cb').forEach(cb => cb.checked = false);
+      document.getElementById('min-price').value = 0;
+      document.getElementById('max-price').value = 7000;
+      document.getElementById('price-range-slider').value = 7000;
+      document.getElementById('product-search-input').value = '';
+      document.getElementById('sort-select').value = 'default';
+      // Re-render
+      const grid = document.getElementById('products-grid');
+      renderProducts(grid, ProductsStore.getAll());
+      document.getElementById('products-count').textContent = ProductsStore.getAll().length;
+    }
+  </script>
+</body>
+</html>

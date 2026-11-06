@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Categories — Velocity Cycles Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-logo"><div class="sidebar-logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="sidebar-logo-text">VELOCITY<span>CYCLES</span></div><div class="sidebar-logo-badge">ADMIN</div></div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="dashboard.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tachometer-alt"></i></div><span class="sidebar-nav-label">Dashboard</span></a>
+        <div class="nav-section-title">Catalog</div>
+        <a href="products.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-bicycle"></i></div><span class="sidebar-nav-label">Products</span></a>
+        <a href="add-product.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-plus-circle"></i></div><span class="sidebar-nav-label">Add Product</span></a>
+        <a href="categories.html" class="sidebar-nav-item active"><div class="sidebar-nav-icon"><i class="fas fa-tags"></i></div><span class="sidebar-nav-label">Categories</span></a>
+        <div class="nav-section-title">Sales</div>
+        <a href="orders.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-shopping-bag"></i></div><span class="sidebar-nav-label">Orders</span></a>
+        <a href="customers.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-users"></i></div><span class="sidebar-nav-label">Customers</span></a>
+        <div class="nav-section-title">System</div>
+        <a href="settings.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-cog"></i></div><span class="sidebar-nav-label">Settings</span></a>
+        <a href="../index.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-external-link-alt"></i></div><span class="sidebar-nav-label">View Store</span></a>
+      </nav>
+      <div class="sidebar-footer"><div class="admin-user-info" onclick="if(confirm('Sign out?')){AuthStore.adminLogout()}"><div class="admin-avatar">A</div><div><div class="admin-user-name admin-user-name-display">Admin</div><div class="admin-user-role">Super Admin</div></div><i class="fas fa-sign-out-alt" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px"></i></div></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <div><div class="admin-page-title">Categories</div><div class="admin-breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> Categories</div></div>
+        </div>
+        <div class="admin-header-right">
+          <div class="admin-header-user"><div class="admin-avatar" style="font-size:13px">A</div><span class="admin-header-user-name admin-user-name-display">Admin</span></div>
+        </div>
+      </header>
+
+      <div class="admin-content">
+        <div style="display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start">
+
+          <!-- Categories List -->
+          <div style="display:flex;flex-direction:column;gap:20px">
+            <!-- Category Cards -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px" id="category-cards-grid"></div>
+
+            <!-- Category Table -->
+            <div class="admin-card">
+              <div class="admin-card-header">
+                <div class="admin-card-title">All Categories</div>
+                <a href="products.html" class="admin-btn admin-btn-outline admin-btn-sm"><i class="fas fa-bicycle"></i> Manage Products</a>
+              </div>
+              <div class="admin-table-wrap">
+                <table class="admin-table">
+                  <thead>
+                    <tr>
+                      <th>Category</th>
+                      <th>Slug</th>
+                      <th>Products</th>
+                      <th>Featured</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="categories-tbody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Add Category Form (read-only note for demo) -->
+          <div class="admin-card" style="position:sticky;top:90px">
+            <div class="admin-card-header"><div class="admin-card-title"><i class="fas fa-plus-circle" style="color:#39ff14;margin-right:8px"></i>Category Details</div></div>
+            <div class="admin-card-body">
+              <div style="background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.1);border-radius:8px;padding:14px;margin-bottom:20px;font-size:12px;color:var(--admin-medium-gray)">
+                <i class="fas fa-info-circle" style="color:#39ff14"></i>
+                Categories are system-defined for this demo. Products are assigned to categories via the <a href="add-product.html" style="color:#2cc110;font-weight:600">Add/Edit Product</a> form.
+              </div>
+
+              <div id="selected-category-detail">
+                <div style="text-align:center;padding:24px;color:var(--admin-light-gray)">
+                  <i class="fas fa-tags" style="font-size:32px;display:block;margin-bottom:8px"></i>
+                  Select a category to view details
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cloudinary.js"></script>
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    requireAdminAuth();
+
+    const CATEGORIES = [
+      { id: 'mountain', name: 'Mountain Bikes', icon: 'fa-mountain', color: '#2d6a4f', description: 'Off-road bikes for trails, XC, enduro and downhill riding.', image: 'https://images.unsplash.com/photo-1576435728678-68d0fbf94946?w=400&q=60', url: '../mountain-bikes.html' },
+      { id: 'road', name: 'Road Bikes', icon: 'fa-road', color: '#0077b6', description: 'Lightweight, fast bikes for road racing, training and touring.', image: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=400&q=60', url: '../road-bikes.html' },
+      { id: 'electric', name: 'Electric Bikes', icon: 'fa-bolt', color: '#39ff14', description: 'Motor-assisted bikes for commuting, touring and e-MTB riding.', image: 'https://images.unsplash.com/photo-1558979158-65a1eaa08691?w=400&q=60', url: '../electric-bikes.html' },
+      { id: 'kids', name: 'Kids Bikes', icon: 'fa-child', color: '#f9c74f', description: 'Age-appropriate bikes for children from balance bikes to 24" wheel.', image: 'https://images.unsplash.com/photo-1507035895480-2b3156c31fc8?w=400&q=60', url: '../kids-bikes.html' }
+    ];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCategoryCards();
+      renderCategoriesTable();
+    });
+
+    function renderCategoryCards() {
+      const products = ProductsStore.getAll();
+      const container = document.getElementById('category-cards-grid');
+      if (!container) return;
+
+      container.innerHTML = CATEGORIES.map(cat => {
+        const count = products.filter(p => p.category === cat.id).length;
+        const totalValue = products.filter(p => p.category === cat.id)
+          .reduce((s, p) => s + (p.discountPrice || p.price), 0);
+
+        return `
+          <div style="background:var(--admin-white);border:1px solid var(--admin-border);border-radius:12px;overflow:hidden;cursor:pointer;transition:all 0.2s;border-top:3px solid ${cat.color}"
+            onclick="showCategoryDetail('${cat.id}')" onmouseover="this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'" onmouseout="this.style.boxShadow='none'">
+            <div style="height:120px;overflow:hidden;position:relative">
+              <img src="${cat.image}" alt="${cat.name}" style="width:100%;height:100%;object-fit:cover">
+              <div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.7),transparent)"></div>
+              <div style="position:absolute;bottom:10px;left:12px">
+                <span style="font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;color:#fff">${cat.name}</span>
+              </div>
+            </div>
+            <div style="padding:14px">
+              <div style="display:flex;justify-content:space-between;align-items:center">
+                <div>
+                  <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800">${count}</div>
+                  <div style="font-size:12px;color:var(--admin-light-gray)">Products</div>
+                </div>
+                <div style="text-align:right">
+                  <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:700;color:${cat.color}">$${totalValue.toLocaleString()}</div>
+                  <div style="font-size:12px;color:var(--admin-light-gray)">Catalog Value</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function renderCategoriesTable() {
+      const tbody = document.getElementById('categories-tbody');
+      const products = ProductsStore.getAll();
+      if (!tbody) return;
+
+      tbody.innerHTML = CATEGORIES.map(cat => {
+        const count = products.filter(p => p.category === cat.id).length;
+        const featuredCount = products.filter(p => p.category === cat.id && p.featured).length;
+        return `
+          <tr>
+            <td>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:36px;height:36px;background:${cat.color}20;border-radius:8px;display:flex;align-items:center;justify-content:center;color:${cat.color};font-size:16px">
+                  <i class="fas ${cat.icon}"></i>
+                </div>
+                <div>
+                  <div style="font-weight:600">${cat.name}</div>
+                  <div style="font-size:11px;color:var(--admin-light-gray)">${cat.description.substring(0, 50)}...</div>
+                </div>
+              </div>
+            </td>
+            <td><code style="background:var(--admin-bg);padding:2px 8px;border-radius:4px;font-size:12px">${cat.id}</code></td>
+            <td>
+              <span style="font-family:'Montserrat',sans-serif;font-weight:700">${count}</span>
+              <a href="products.html" style="font-size:11px;color:#2cc110;margin-left:6px">manage →</a>
+            </td>
+            <td>${featuredCount > 0 ? `<span class="status-badge status-active">${featuredCount} featured</span>` : '<span style="color:var(--admin-light-gray);font-size:13px">None</span>'}</td>
+            <td><span class="status-badge status-active">Active</span></td>
+            <td>
+              <div style="display:flex;gap:6px">
+                <button class="admin-btn admin-btn-outline admin-btn-sm admin-btn-icon" onclick="showCategoryDetail('${cat.id}')" title="View Details"><i class="fas fa-eye"></i></button>
+                <a href="${cat.url}" target="_blank" class="admin-btn admin-btn-outline admin-btn-sm admin-btn-icon" title="View on Store"><i class="fas fa-external-link-alt"></i></a>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function showCategoryDetail(catId) {
+      const cat = CATEGORIES.find(c => c.id === catId);
+      const products = ProductsStore.getByCategory(catId);
+      const orders = OrdersStore.getAll();
+      const container = document.getElementById('selected-category-detail');
+      if (!container || !cat) return;
+
+      const categoryRevenue = orders
+        .filter(o => o.status !== 'cancelled')
+        .flatMap(o => o.items)
+        .filter(i => products.some(p => p.id === i.id))
+        .reduce((s, i) => s + (i.price * i.quantity), 0);
+
+      const topProducts = [...products].sort((a, b) => b.rating - a.rating).slice(0, 3);
+
+      container.innerHTML = `
+        <div style="margin-bottom:20px">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+            <div style="width:44px;height:44px;background:${cat.color}20;border-radius:10px;display:flex;align-items:center;justify-content:center;color:${cat.color};font-size:20px"><i class="fas ${cat.icon}"></i></div>
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800">${cat.name}</div>
+              <div style="font-size:12px;color:var(--admin-light-gray)">${cat.description}</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+            <div style="background:var(--admin-bg);border-radius:8px;padding:12px;text-align:center">
+              <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;color:${cat.color}">${products.length}</div>
+              <div style="font-size:11px;color:var(--admin-light-gray)">Products</div>
+            </div>
+            <div style="background:var(--admin-bg);border-radius:8px;padding:12px;text-align:center">
+              <div style="font-family:'Montserrat',sans-serif;font-size:16px;font-weight:800">$${categoryRevenue.toFixed(0)}</div>
+              <div style="font-size:11px;color:var(--admin-light-gray)">Revenue</div>
+            </div>
+          </div>
+
+          <div style="margin-bottom:8px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--admin-medium-gray)">Top Products</div>
+          ${topProducts.map(p => `
+            <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--admin-bg);border-radius:8px;margin-bottom:8px">
+              <img src="${p.images[0]}" alt="${p.name}" style="width:40px;height:30px;object-fit:cover;border-radius:6px" onerror="this.src='https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=100&q=60'">
+              <div style="flex:1;min-width:0">
+                <div style="font-size:12px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${p.name}</div>
+                <div style="font-size:11px;color:var(--admin-light-gray)">$${(p.discountPrice||p.price).toLocaleString()}</div>
+              </div>
+              <div style="font-size:11px;color:var(--admin-warning)"><i class="fas fa-star"></i> ${p.rating}</div>
+            </div>
+          `).join('')}
+
+          <div style="display:flex;gap:8px;margin-top:16px">
+            <a href="${cat.url}" target="_blank" class="admin-btn admin-btn-outline admin-btn-sm" style="flex:1;justify-content:center;display:flex">
+              <i class="fas fa-external-link-alt"></i> View Page
+            </a>
+            <a href="add-product.html" class="admin-btn admin-btn-primary admin-btn-sm" style="flex:1;justify-content:center;display:flex">
+              <i class="fas fa-plus"></i> Add Product
+            </a>
+          </div>
+        </div>
+      `;
+    }
+  </script>
+</body>
+</html>

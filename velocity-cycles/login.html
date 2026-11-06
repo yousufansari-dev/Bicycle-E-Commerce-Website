@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — Velocity Cycles</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/responsive.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+  <style>
+    body { background: var(--bg-light); }
+    .password-toggle { position: relative; }
+    .password-toggle input { padding-right: 48px; }
+    .toggle-pw-btn { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--light-gray); cursor: pointer; font-size: 16px; transition: var(--transition); }
+    .toggle-pw-btn:hover { color: var(--charcoal); }
+  </style>
+</head>
+<body>
+  <div class="toast-container" id="toast-container"></div>
+
+  <div class="auth-layout">
+    <!-- VISUAL SIDE -->
+    <div class="auth-visual">
+      <div class="auth-visual-bg" style="background-image:url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80')"></div>
+      <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,10,10,0.92),rgba(10,10,10,0.7))"></div>
+      <div class="auth-visual-content" style="position:relative;z-index:2">
+        <a href="index.html" class="logo" style="justify-content:center;margin-bottom:40px">
+          <div class="logo-icon" style="width:52px;height:52px;font-size:26px"><i class="fas fa-bicycle"></i></div>
+          <div><div class="logo-text" style="font-size:24px">VELOCITY<span>CYCLES</span></div></div>
+        </a>
+        <h2 class="auth-visual-title">Welcome Back,<br>Rider.</h2>
+        <p class="auth-visual-text" style="max-width:360px;margin:0 auto">Log in to access your orders, wishlist, and personalized recommendations. Your next great ride awaits.</p>
+        <div style="display:flex;gap:24px;margin-top:48px;justify-content:center;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-family:var(--font-heading);font-size:28px;font-weight:900;color:var(--primary)">50K+</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5)">Happy Riders</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-heading);font-size:28px;font-weight:900;color:var(--white)">500+</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5)">Premium Bikes</div>
+          </div>
+          <div style="text-align:center">
+            <div style="font-family:var(--font-heading);font-size:28px;font-weight:900;color:var(--primary)">4.9★</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.5)">Avg Rating</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FORM SIDE -->
+    <div class="auth-form-area">
+      <div class="auth-form-container">
+        <div class="auth-form-header">
+          <h1>Sign In</h1>
+          <p>Welcome back! Please enter your credentials to continue.</p>
+        </div>
+
+        <form id="login-form" onsubmit="handleCustomerLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <div style="position:relative">
+              <i class="fas fa-envelope" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:14px"></i>
+              <input type="email" id="login-email" class="form-control" placeholder="you@example.com" required style="padding-left:42px">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" style="display:flex;justify-content:space-between">
+              Password
+              <a href="#" style="color:var(--primary-dark);font-size:12px;font-weight:600">Forgot password?</a>
+            </label>
+            <div class="password-toggle">
+              <i class="fas fa-lock" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);color:var(--light-gray);font-size:14px"></i>
+              <input type="password" id="login-password" class="form-control" placeholder="Enter your password" required style="padding-left:42px">
+              <button type="button" class="toggle-pw-btn" onclick="togglePassword('login-password',this)"><i class="fas fa-eye"></i></button>
+            </div>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px">
+            <input type="checkbox" id="remember-me" style="accent-color:var(--primary);width:16px;height:16px">
+            <label for="remember-me" style="font-size:14px;color:var(--medium-gray);cursor:pointer">Remember me for 30 days</label>
+          </div>
+          <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;padding:15px;font-size:15px">
+            <i class="fas fa-sign-in-alt"></i> Sign In
+          </button>
+        </form>
+
+        <div class="auth-divider">or continue with</div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:24px">
+          <button onclick="showToast('Demo Mode','Social login is not available in this demo.','info')" class="btn btn-outline" style="justify-content:center;padding:12px">
+            <i class="fab fa-google" style="color:#ea4335"></i> Google
+          </button>
+          <button onclick="showToast('Demo Mode','Social login is not available in this demo.','info')" class="btn btn-outline" style="justify-content:center;padding:12px">
+            <i class="fab fa-facebook-f" style="color:#1877f2"></i> Facebook
+          </button>
+        </div>
+
+        <div class="auth-switch">
+          Don't have an account? <a href="register.html">Create one free</a>
+        </div>
+
+        <!-- Demo credentials hint -->
+        <div style="background:rgba(57,255,20,0.06);border:1px solid rgba(57,255,20,0.2);border-radius:10px;padding:16px;margin-top:24px;font-size:13px">
+          <div style="font-weight:700;color:var(--charcoal);margin-bottom:6px"><i class="fas fa-info-circle" style="color:var(--primary)"></i> Demo Mode</div>
+          <div style="color:var(--medium-gray)">Register a new account or use any email/password you registered with. For admin access: <a href="admin/login.html" style="color:var(--primary-dark);font-weight:600">Admin Panel →</a></div>
+        </div>
+
+        <div style="text-align:center;margin-top:24px">
+          <a href="index.html" style="font-size:13px;color:var(--light-gray);display:inline-flex;align-items:center;gap:6px">
+            <i class="fas fa-arrow-left"></i> Back to Homepage
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/products.js"></script>
+  <script src="assets/js/cart.js"></script>
+  <script src="assets/js/wishlist.js"></script>
+  <script src="assets/js/auth.js"></script>
+  <script src="assets/js/orders.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script>
+    function togglePassword(inputId, btn) {
+      const input = document.getElementById(inputId);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = '<i class="fas fa-eye-slash"></i>';
+      } else {
+        input.type = 'password';
+        btn.innerHTML = '<i class="fas fa-eye"></i>';
+      }
+    }
+
+    // Redirect if already logged in
+    document.addEventListener('DOMContentLoaded', () => {
+      const user = AuthStore.getCurrentUser();
+      if (user) {
+        const redirect = new URLSearchParams(window.location.search).get('redirect');
+        if (redirect) window.location.href = redirect;
+      }
+    });
+  </script>
+</body>
+</html>

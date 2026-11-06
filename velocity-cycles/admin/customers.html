@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Customers — Velocity Cycles Admin</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/706/706201.png">
+</head>
+<body>
+  <div class="admin-toast-container" id="toast-container"></div>
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar" id="admin-sidebar">
+      <div class="sidebar-logo"><div class="sidebar-logo-icon"><i class="fas fa-bicycle"></i></div><div><div class="sidebar-logo-text">VELOCITY<span>CYCLES</span></div><div class="sidebar-logo-badge">ADMIN</div></div></div>
+      <nav class="sidebar-nav">
+        <div class="nav-section-title">Main</div>
+        <a href="dashboard.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tachometer-alt"></i></div><span class="sidebar-nav-label">Dashboard</span></a>
+        <div class="nav-section-title">Catalog</div>
+        <a href="products.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-bicycle"></i></div><span class="sidebar-nav-label">Products</span></a>
+        <a href="add-product.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-plus-circle"></i></div><span class="sidebar-nav-label">Add Product</span></a>
+        <a href="categories.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-tags"></i></div><span class="sidebar-nav-label">Categories</span></a>
+        <div class="nav-section-title">Sales</div>
+        <a href="orders.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-shopping-bag"></i></div><span class="sidebar-nav-label">Orders</span></a>
+        <a href="customers.html" class="sidebar-nav-item active"><div class="sidebar-nav-icon"><i class="fas fa-users"></i></div><span class="sidebar-nav-label">Customers</span></a>
+        <div class="nav-section-title">System</div>
+        <a href="settings.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-cog"></i></div><span class="sidebar-nav-label">Settings</span></a>
+        <a href="../index.html" class="sidebar-nav-item"><div class="sidebar-nav-icon"><i class="fas fa-external-link-alt"></i></div><span class="sidebar-nav-label">View Store</span></a>
+      </nav>
+      <div class="sidebar-footer"><div class="admin-user-info" onclick="if(confirm('Sign out?')){AuthStore.adminLogout()}"><div class="admin-avatar">A</div><div><div class="admin-user-name admin-user-name-display">Admin</div><div class="admin-user-role">Super Admin</div></div><i class="fas fa-sign-out-alt" style="margin-left:auto;color:rgba(255,255,255,0.3);font-size:14px"></i></div></div>
+    </aside>
+
+    <main class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header-left">
+          <button class="sidebar-toggle" id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <div><div class="admin-page-title">Customers</div><div class="admin-breadcrumb"><a href="dashboard.html">Dashboard</a> <i class="fas fa-chevron-right" style="font-size:9px"></i> Customers</div></div>
+        </div>
+        <div class="admin-header-right">
+          <button onclick="exportCustomers()" class="admin-btn admin-btn-outline admin-btn-sm"><i class="fas fa-download"></i> Export</button>
+          <div class="admin-header-divider"></div>
+          <div class="admin-header-user"><div class="admin-avatar" style="font-size:13px">A</div><span class="admin-header-user-name admin-user-name-display">Admin</span></div>
+        </div>
+      </header>
+
+      <div class="admin-content">
+
+        <!-- Customer Stats -->
+        <div class="stats-grid" style="margin-bottom:24px">
+          <div class="stat-card blue">
+            <div class="stat-card-header"><div class="stat-card-title">Total Customers</div><div class="stat-icon blue"><i class="fas fa-users"></i></div></div>
+            <div class="stat-value" id="stat-total-customers">0</div>
+          </div>
+          <div class="stat-card green">
+            <div class="stat-card-header"><div class="stat-card-title">Avg Order Value</div><div class="stat-icon green"><i class="fas fa-dollar-sign"></i></div></div>
+            <div class="stat-value" id="stat-avg-order">$0</div>
+          </div>
+          <div class="stat-card orange">
+            <div class="stat-card-header"><div class="stat-card-title">Repeat Buyers</div><div class="stat-icon orange"><i class="fas fa-sync"></i></div></div>
+            <div class="stat-value" id="stat-repeat-buyers">0</div>
+          </div>
+          <div class="stat-card red">
+            <div class="stat-card-header"><div class="stat-card-title">Newsletter Subs</div><div class="stat-icon red"><i class="fas fa-envelope"></i></div></div>
+            <div class="stat-value" id="stat-subscribers">0</div>
+          </div>
+        </div>
+
+        <!-- Customers Table -->
+        <div class="admin-card">
+          <div class="admin-card-header">
+            <div class="admin-card-title">All Customers (<span id="customers-count">0</span>)</div>
+            <div style="display:flex;gap:10px">
+              <div class="admin-search-wrap" style="max-width:260px">
+                <i class="fas fa-search"></i>
+                <input type="text" id="customer-search" class="admin-search-input" placeholder="Search customers...">
+              </div>
+              <select id="customer-sort" class="admin-filter-select">
+                <option value="newest">Newest First</option>
+                <option value="name">Name A–Z</option>
+                <option value="orders">Most Orders</option>
+                <option value="spent">Highest Spend</option>
+              </select>
+            </div>
+          </div>
+          <div class="admin-table-wrap">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Email</th>
+                  <th>Phone</th>
+                  <th>Orders</th>
+                  <th>Total Spent</th>
+                  <th>Joined</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="customers-tbody"></tbody>
+            </table>
+          </div>
+          <div style="padding:14px 20px;border-top:1px solid var(--admin-border)">
+            <div style="font-size:13px;color:var(--admin-light-gray)">Showing <span id="customers-showing">0</span> customers</div>
+          </div>
+        </div>
+
+        <!-- Demo Notice -->
+        <div style="background:rgba(57,255,20,0.04);border:1px solid rgba(57,255,20,0.1);border-radius:10px;padding:16px;margin-top:20px;display:flex;gap:12px;align-items:flex-start">
+          <i class="fas fa-info-circle" style="color:#39ff14;font-size:18px;margin-top:1px"></i>
+          <div>
+            <div style="font-weight:700;font-size:13px;margin-bottom:4px">Demo Mode — Customer Data</div>
+            <div style="font-size:13px;color:var(--admin-medium-gray)">Customers shown here are accounts registered through the customer portal. To see demo data, <a href="../register.html" target="_blank" style="color:#2cc110;font-weight:600">create a customer account</a> on the store frontend. Existing demo orders show simulated customer data from the order seeding.</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Customer Detail Modal -->
+  <div class="modal-overlay" id="customer-detail-modal">
+    <div class="modal" style="max-width:580px;max-height:90vh;overflow-y:auto">
+      <button class="modal-close" onclick="closeCustomerModal()"><i class="fas fa-times"></i></button>
+      <h2 style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800;margin-bottom:24px"><i class="fas fa-user-circle" style="color:#39ff14;margin-right:8px"></i>Customer Details</h2>
+      <div id="customer-detail-content"></div>
+    </div>
+  </div>
+
+  <script src="../assets/js/products.js"></script>
+  <script src="../assets/js/cart.js"></script>
+  <script src="../assets/js/wishlist.js"></script>
+  <script src="../assets/js/auth.js"></script>
+  <script src="../assets/js/orders.js"></script>
+  <script src="../assets/js/cloudinary.js"></script>
+  <script src="../assets/js/admin.js"></script>
+  <script>
+    requireAdminAuth();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCustomerStats();
+      renderCustomersList();
+
+      document.getElementById('customer-search')?.addEventListener('input', renderCustomersList);
+      document.getElementById('customer-sort')?.addEventListener('change', renderCustomersList);
+    });
+
+    function renderCustomerStats() {
+      const customers = AuthStore.getCustomers();
+      const orders = OrdersStore.getAll();
+      const subscribers = JSON.parse(localStorage.getItem('vc_subscribers') || '[]');
+
+      const totalOrders = orders.length;
+      const totalRevenue = orders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + o.total, 0);
+      const avgOrder = totalOrders > 0 ? totalRevenue / totalOrders : 0;
+
+      // Count customers with more than 1 order
+      const repeatBuyers = customers.filter(c => {
+        const custOrders = orders.filter(o => o.customerEmail === c.email);
+        return custOrders.length > 1;
+      }).length;
+
+      document.getElementById('stat-total-customers').textContent = customers.length;
+      document.getElementById('stat-avg-order').textContent = '$' + avgOrder.toFixed(0);
+      document.getElementById('stat-repeat-buyers').textContent = repeatBuyers;
+      document.getElementById('stat-subscribers').textContent = subscribers.length;
+    }
+
+    function renderCustomersList() {
+      let customers = AuthStore.getCustomers();
+      const orders = OrdersStore.getAll();
+      const search = document.getElementById('customer-search')?.value.toLowerCase() || '';
+      const sort = document.getElementById('customer-sort')?.value || 'newest';
+
+      if (search) {
+        customers = customers.filter(c =>
+          c.firstName.toLowerCase().includes(search) ||
+          c.lastName.toLowerCase().includes(search) ||
+          c.email.toLowerCase().includes(search)
+        );
+      }
+
+      // Augment with order data
+      const enriched = customers.map(c => {
+        const custOrders = orders.filter(o => o.customerEmail === c.email);
+        return {
+          ...c,
+          orderCount: custOrders.length,
+          totalSpent: custOrders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + o.total, 0)
+        };
+      });
+
+      if (sort === 'name') enriched.sort((a, b) => a.firstName.localeCompare(b.firstName));
+      else if (sort === 'orders') enriched.sort((a, b) => b.orderCount - a.orderCount);
+      else if (sort === 'spent') enriched.sort((a, b) => b.totalSpent - a.totalSpent);
+      else enriched.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+      const tbody = document.getElementById('customers-tbody');
+      document.getElementById('customers-count').textContent = enriched.length;
+      document.getElementById('customers-showing').textContent = enriched.length;
+
+      if (!tbody) return;
+
+      if (enriched.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="7" style="text-align:center;padding:48px;color:var(--admin-light-gray)">
+              <i class="fas fa-users" style="font-size:36px;display:block;margin-bottom:12px"></i>
+              No customers found. <a href="../register.html" target="_blank" style="color:#2cc110">Register a customer account</a> to see it here.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = enriched.map(c => {
+        const joined = new Date(c.createdAt).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+        const initials = (c.firstName[0] + c.lastName[0]).toUpperCase();
+        return `
+          <tr>
+            <td>
+              <div style="display:flex;align-items:center;gap:10px">
+                <div style="width:38px;height:38px;background:rgba(57,255,20,0.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:700;color:#2cc110;font-size:13px;flex-shrink:0">${initials}</div>
+                <div>
+                  <div style="font-weight:600">${c.firstName} ${c.lastName}</div>
+                  <div style="font-size:11px;color:var(--admin-light-gray)">${c.id}</div>
+                </div>
+              </div>
+            </td>
+            <td style="font-size:13px">${c.email}</td>
+            <td style="font-size:13px">${c.phone || '—'}</td>
+            <td>
+              <span style="font-family:'Montserrat',sans-serif;font-weight:700">${c.orderCount}</span>
+              ${c.orderCount > 1 ? '<span style="background:rgba(16,185,129,0.1);color:#047857;font-size:10px;font-weight:700;padding:2px 6px;border-radius:3px;margin-left:4px">Repeat</span>' : ''}
+            </td>
+            <td style="font-weight:700;color:${c.totalSpent > 0 ? '#2cc110' : 'var(--admin-light-gray)'}">$${c.totalSpent.toFixed(2)}</td>
+            <td style="font-size:13px">${joined}</td>
+            <td>
+              <button class="admin-btn admin-btn-outline admin-btn-sm admin-btn-icon" onclick="viewCustomerDetails('${c.id}')" title="View Details">
+                <i class="fas fa-eye"></i>
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function viewCustomerDetails(customerId) {
+      const customers = AuthStore.getCustomers();
+      const customer = customers.find(c => c.id === customerId);
+      if (!customer) return;
+
+      const orders = OrdersStore.getAll().filter(o => o.customerEmail === customer.email);
+      const totalSpent = orders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + o.total, 0);
+      const joined = new Date(customer.createdAt).toLocaleDateString('en-US', { dateStyle: 'long' });
+
+      const content = document.getElementById('customer-detail-content');
+      content.innerHTML = `
+        <div style="display:flex;align-items:center;gap:16px;padding:20px;background:var(--admin-bg);border-radius:10px;margin-bottom:20px">
+          <div style="width:64px;height:64px;background:rgba(57,255,20,0.1);border-radius:12px;display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:800;color:#2cc110;font-size:22px">
+            ${(customer.firstName[0] + customer.lastName[0]).toUpperCase()}
+          </div>
+          <div>
+            <div style="font-family:'Montserrat',sans-serif;font-size:20px;font-weight:800">${customer.firstName} ${customer.lastName}</div>
+            <div style="color:var(--admin-medium-gray);font-size:13px">${customer.email}</div>
+            ${customer.phone ? `<div style="color:var(--admin-medium-gray);font-size:13px">${customer.phone}</div>` : ''}
+          </div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:20px">
+          <div style="text-align:center;padding:16px;background:var(--admin-bg);border-radius:8px">
+            <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;color:#2cc110">${orders.length}</div>
+            <div style="font-size:12px;color:var(--admin-light-gray)">Orders</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:var(--admin-bg);border-radius:8px">
+            <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800">$${totalSpent.toFixed(0)}</div>
+            <div style="font-size:12px;color:var(--admin-light-gray)">Total Spent</div>
+          </div>
+          <div style="text-align:center;padding:16px;background:var(--admin-bg);border-radius:8px">
+            <div style="font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800">${orders.length > 0 ? (totalSpent / orders.length).toFixed(0) : 0}</div>
+            <div style="font-size:12px;color:var(--admin-light-gray)">Avg Order $</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--admin-medium-gray)">Order History</div>
+        ${orders.length > 0 ? orders.map(o => `
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:12px;background:var(--admin-bg);border-radius:8px;margin-bottom:8px">
+            <div>
+              <div style="font-family:'Montserrat',sans-serif;font-size:12px;font-weight:700;color:#2cc110">${o.id}</div>
+              <div style="font-size:12px;color:var(--admin-light-gray)">${new Date(o.createdAt).toLocaleDateString()}</div>
+            </div>
+            <div style="font-weight:700">$${o.total.toFixed(2)}</div>
+            <span class="status-badge status-${o.status}">${capitalize(o.status)}</span>
+          </div>
+        `).join('') : '<div style="text-align:center;padding:24px;color:var(--admin-light-gray);font-size:13px">No orders yet</div>'}
+
+        <div style="margin-top:16px;font-size:12px;color:var(--admin-light-gray)">
+          <i class="fas fa-calendar-alt"></i> Customer since ${joined}
+        </div>
+      `;
+
+      document.getElementById('customer-detail-modal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeCustomerModal() {
+      document.getElementById('customer-detail-modal')?.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function exportCustomers() {
+      const customers = AuthStore.getCustomers();
+      const orders = OrdersStore.getAll();
+      const rows = ['ID,First Name,Last Name,Email,Phone,Orders,Total Spent,Joined'];
+      customers.forEach(c => {
+        const custOrders = orders.filter(o => o.customerEmail === c.email);
+        const spent = custOrders.filter(o => o.status !== 'cancelled').reduce((s, o) => s + o.total, 0);
+        const joined = new Date(c.createdAt).toLocaleDateString();
+        rows.push(`${c.id},"${c.firstName}","${c.lastName}","${c.email}","${c.phone || ''}",${custOrders.length},$${spent.toFixed(2)},"${joined}"`);
+      });
+      const blob = new Blob([rows.join('\n')], { type: 'text/csv' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'velocity-cycles-customers.csv';
+      a.click();
+    }
+
+    function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : ''; }
+
+    document.getElementById('customer-detail-modal')?.addEventListener('click', function(e) {
+      if (e.target === this) closeCustomerModal();
+    });
+  </script>
+</body>
+</html>
